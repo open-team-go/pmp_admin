@@ -18,6 +18,36 @@
               <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="名称"></el-input>
             </el-form-item>
             <el-form-item>
+              <el-select v-model="listQuery.useOn" clearable placeholder="用户名">
+              <el-option
+                v-for="item in useOnoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            </el-form-item>
+            <el-form-item>
+              <el-select v-model="listQuery.useOn" clearable placeholder="课程名">
+              <el-option
+                v-for="item in useOnoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            </el-form-item>
+            <el-form-item>
+              <el-select v-model="listQuery.useOn" clearable placeholder="教学点名称">
+              <el-option
+                v-for="item in useOnoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            </el-form-item>
+            <el-form-item>
               <el-select v-model="listQuery.useOn" clearable placeholder="是否使用">
               <el-option
                 v-for="item in useOnoptions"
@@ -42,19 +72,10 @@
                 v-loading="listLoading"
                 border>
         <el-table-column label="名称" align="center">
-          <template slot-scope="scope">{{scope.row.placeName}}</template>
-        </el-table-column>
-        <el-table-column label="地址" align="center">
-          <template slot-scope="scope">{{scope.row.address}}</template>
-        </el-table-column>
-         <el-table-column label="联系人" align="center">
-          <template slot-scope="scope">{{scope.row.contactName}}</template>
-        </el-table-column>
-        <el-table-column label="联系电话" align="center">
-          <template slot-scope="scope">{{scope.row.contactPhone}}</template>
+          <template slot-scope="scope">{{scope.row.courseName}}</template>
         </el-table-column>
         <el-table-column label="描述" align="center">
-          <template slot-scope="scope">{{scope.row.placeDesc}}</template>
+          <template slot-scope="scope">{{scope.row.courseDesc}}</template>
         </el-table-column>
         <el-table-column label="是否使用" align="center">
           <template slot-scope="scope">
@@ -100,19 +121,10 @@
                ref="formData"
                label-width="150px" size="small">
         <el-form-item label="名称：">
-          <el-input v-model="formData.placeName" style="width: 250px"></el-input>
-        </el-form-item>
-        <el-form-item label="地址：">
-         <el-input v-model="formData.address" style="width: 250px"></el-input>
-        </el-form-item>
-        <el-form-item label="联系人：">
-          <el-input v-model="formData.contactName" style="width: 250px"></el-input>
-        </el-form-item>
-        <el-form-item label="联系电话：">
-         <el-input v-model="formData.contactPhone" style="width: 250px"></el-input>
+          <el-input v-model="formData.courseName" style="width: 250px"></el-input>
         </el-form-item>
         <el-form-item label="描述：">
-         <el-input v-model="formData.placeDesc"  type="textarea" style="width: 250px"></el-input>
+         <el-input v-model="formData.courseDesc"  type="textarea" style="width: 250px"></el-input>
         </el-form-item>
         <el-form-item label="是否使用">
          <el-switch  v-model="formData.useOn"></el-switch>
@@ -126,16 +138,13 @@
   </div>
 </template>
 <script>
-  const placeService = require('@/api/place')
+  const courseService = require('@/api/course')
 
   const defaultFormData = {
-    placeId: null,
-    placeName: null,
-    address: null,
-    contactName: null,
-    contactPhone: null,
-    placeDesc: null,
-    useOn: true
+    courseId: null,
+    courseName: null,
+    courseDesc: null,
+    useOn: null
   };
 
   const useOnoptions = [
@@ -153,14 +162,13 @@
           pageSize: 10,
           useOn: null
         },
-        useOnoptions,
         list: null,
         total: null,
         listLoading: true,
         dialogVisible: false,
         formData: Object.assign({}, defaultFormData),
         isEdit: false,
-        rolesList:[]        
+        useOnoptions
       }
     },
     created() {
@@ -168,23 +176,25 @@
     },
     computed:{
       dialogTitle:function(){
-        return  this.isEdit ?  '修改教学点' : '添加教学点'
+        return  this.isEdit ?  '修改课程' : '添加课程'
       }
     },
     methods: {
+      // TODO: 是否使用搜索
      getList() {
         this.listLoading = true;
-        placeService.fetchList(this.listQuery).then(res => {
+        courseService.fetchList(this.listQuery).then(res => {
           console.log(res)
           this.listLoading = false;
           this.list = res.data.list;
           this.total = res.data.total;
           this.listQuery.pageNum = res.data.pageNum;
+          this.listQuery.pageSize = res.data.pageSize;
         }).catch(err=>{
           this.listLoading = false;
           this.list = []
           this.total = 0
-        });
+        });;
       },
       handleUpdate(index, row) {
         this.dialogVisible = true;
@@ -197,13 +207,13 @@
         this.formData = Object.assign({},defaultFormData);
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该教学点', '提示', {
+        this.$confirm('是否删除', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          placeService.del({
-           Id: row.placeId
+          courseService.del({
+           Id: row.courseId
           }).then(res => {
             this.$message({
               message: '删除成功',
@@ -230,7 +240,7 @@
       handleDialogConfirm() {
         const data = this.formData
         if (this.isEdit) {
-          placeService.update(data).then(res => {
+          courseService.update(data).then(res => {
             this.$message({
               message: '修改成功！',
               type: 'success'
@@ -239,7 +249,7 @@
             this.getList();
           })
         } else {
-          placeService.add(data).then(response => {
+          courseService.add(data).then(response => {
             this.$message({
               message: '添加成功！',
               type: 'success'
@@ -255,7 +265,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          placeService.update(row).then(res => {
+          courseService.update(row).then(res => {
             this.$message({
               message: '修改成功！',
               type: 'success'

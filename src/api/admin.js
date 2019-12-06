@@ -23,24 +23,6 @@ export function del(data) {
 	})
 }
 
-
-export function login(data) {
-	return request({
-		url: '/back/admin/login',
-		method: 'post',
-		data
-	})
-}
-
-
-export function loginOut(data) {
-	return request({
-		url: '/back/admin/loginOut',
-		method: 'post',
-		data
-	})
-}
-
 export function search(data) {
 	return request({
 		url: '/back/admin/search',

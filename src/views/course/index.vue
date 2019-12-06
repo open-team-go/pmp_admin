@@ -17,6 +17,16 @@
             <el-form-item label="输入搜索：">
               <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="名称"></el-input>
             </el-form-item>
+            <el-form-item>
+              <el-select v-model="listQuery.useOn" clearable placeholder="是否使用">
+              <el-option
+                v-for="item in useOnoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            </el-form-item>
           </el-form>
         </div>
     </el-card>
@@ -69,7 +79,8 @@
         :page-size="listQuery.pageSize"
         :page-sizes="[10,15,30]"
         :current-page.sync="listQuery.pageNum"
-        :total="total">
+        :total="total"
+        :hide-on-single-page=true>
       </el-pagination>
     </div>
     <el-dialog
@@ -103,8 +114,13 @@
     courseId: null,
     courseName: null,
     courseDesc: null,
-    useOn: true
+    useOn: null
   };
+
+  const useOnoptions = [
+    {label:'可使用',value:true},
+    {label:'不可使用',value:false}
+  ]
 
   export default {
     name: 'userList',
@@ -121,7 +137,8 @@
         listLoading: true,
         dialogVisible: false,
         formData: Object.assign({}, defaultFormData),
-        isEdit: false     
+        isEdit: false,
+        useOnoptions
       }
     },
     created() {
@@ -143,7 +160,11 @@
           this.total = res.data.total;
           this.listQuery.pageNum = res.data.pageNum;
           this.listQuery.pageSize = res.data.pageSize;
-        });
+        }).catch(err=>{
+          this.listLoading = false;
+          this.list = []
+          this.total = 0
+        });;
       },
       handleUpdate(index, row) {
         this.dialogVisible = true;

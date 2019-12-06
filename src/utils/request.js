@@ -12,7 +12,7 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(config => {
   if (store.getters.token) {
-    config.headers['Authorization'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+    config.headers['authentication'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
   
   if(config.method.toUpperCase()=="POST"){
@@ -27,7 +27,7 @@ service.interceptors.request.use(config => {
     const qdata = {
       body: config.data || {},
       header:{
-        authentication: null,
+        authentication: config.headers['authentication'] || null,
         pageNum,
         pageSize
       }
@@ -77,9 +77,8 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error)// for debug
     Message({
-      message: error.message,
+      message: error.msg,
       type: 'error',
       duration: 3 * 1000
     })

@@ -14,12 +14,16 @@ import router from './router'
 import store from './store'
 
 import '@/icons' // icon
+import '@/permission' // 权限
 
+import {hasPermission} from "./utils/hasPermission";
+
+Vue.prototype.hasPerm = hasPermission
 
 Vue.use(ElementUI, { locale })
 Vue.use(VCharts)
 
-Vue.config.productionTip = false
+Vue.config.productionTip = (process.env.NODE_ENV != 'production')
 
 new Vue({
   el: '#app',

@@ -17,6 +17,16 @@
             <el-form-item label="输入搜索：">
               <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="用户名/手机号"></el-input>
             </el-form-item>
+            <el-form-item>
+              <el-select v-model="listQuery.roleId" clearable placeholder="请选择角色">
+              <el-option
+                v-for="item in rolesList"
+                :key="item.roleId"
+                :label="item.roleName"
+                :value="item.roleId">
+              </el-option>
+            </el-select>
+            </el-form-item>
           </el-form>
         </div>
     </el-card>
@@ -70,6 +80,7 @@
         :page-size="listQuery.pageSize"
         :page-sizes="[10,15,30]"
         :current-page.sync="listQuery.pageNum"
+        :hide-on-single-page=true
         :total="total">
       </el-pagination>
     </div>
@@ -162,7 +173,11 @@
           this.total = res.data.total;
           this.listQuery.pageNum = res.data.pageNum;
           this.listQuery.pageSize = res.data.pageSize;
-        });
+        }).catch(err=>{
+          this.listLoading = false;
+          this.list = []
+          this.total = 0
+        });;
       },
       getRolesList(){
         this.listLoading = true;

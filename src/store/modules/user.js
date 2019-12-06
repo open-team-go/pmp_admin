@@ -1,11 +1,12 @@
 import { login, logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import avatar from '@/assets/images/avatar.jpg'
 
 const user = {
   state: {
     token: getToken(),
     name: '',
-    avatar: '',
+    avatar: avatar,
     roles: []
   },
 
@@ -27,13 +28,15 @@ const user = {
   actions: {
     // 登录
     Login({ commit }, userInfo) {
-      const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then(response => {
+        login(userInfo).then(response => {
+          console.log(response)
           const data = response.data
-          const tokenStr = data.tokenHead+data.token
+          const tokenStr = data.authentication
           setToken(tokenStr)
           commit('SET_TOKEN', tokenStr)
+          commit('SET_NAME', data.userInfo)
+          commit('SET_ROLES', data.roleInfo)
           resolve()
         }).catch(error => {
           reject(error)
@@ -63,7 +66,7 @@ const user = {
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
+        logout().then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           removeToken()
