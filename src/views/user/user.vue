@@ -167,7 +167,6 @@
      getList() {
         this.listLoading = true;
         adminService.fetchList(this.listQuery).then(res => {
-          console.log(res)
           this.listLoading = false;
           this.list = res.data.list;
           this.total = res.data.total;
@@ -182,7 +181,7 @@
       getRolesList(){
         this.listLoading = true;
         fetchAllRolesList().then(res => {
-          console.log(res)
+          
           this.listLoading = false;
           this.rolesList = res.data;
         });

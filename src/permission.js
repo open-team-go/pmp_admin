@@ -4,21 +4,23 @@ import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
 import { Message } from 'element-ui'
 import { getToken } from '@/utils/auth' // 验权
+import {getCookie} from '@/utils/cookie';
+
 
 const whiteList = ['/login'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
   NProgress.start()
   if (getToken()) {
-    console.log('2. getToken')
     if (to.path === '/login') {
-      console.log('3. 进入login')
       next({ path: '/' })
       NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
     } else {
-      console.log('4. 其他路径')
-      // next()
       if (store.getters.roles.length === 0) {
-        store.dispatch('GetInfo').then(res => { // 拉取用户信息
+        let formdata = {
+          userName: getCookie("username"),
+          password: getCookie("password")
+        }
+        store.dispatch('Login',formdata).then(res => { // 拉取用户信息
           next()
         }).catch((err) => {
           store.dispatch('FedLogOut').then(() => {
@@ -27,7 +29,6 @@ router.beforeEach((to, from, next) => {
           })
         })
       } else {
-        console.log('5. 没有权限')
         next()
       }
     }

@@ -184,7 +184,7 @@
      getList() {
         this.listLoading = true;
         courseService.fetchList(this.listQuery).then(res => {
-          console.log(res)
+          
           this.listLoading = false;
           this.list = res.data.list;
           this.total = res.data.total;
