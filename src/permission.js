@@ -21,7 +21,17 @@ router.beforeEach((to, from, next) => {
           password: getCookie("password")
         }
         store.dispatch('Login',formdata).then(res => { // 拉取用户信息
-          next()
+          //生成路由
+          let userPermission = {
+            roleInfo: store.getters.roles[0],
+            routers: store.getters.permissions
+          }
+          store.dispatch('GenerateRoutes', userPermission).then(() => {
+            //生成该用户的新路由json操作完毕之后,调用vue-router的动态新增路由方法,将新路由添加
+            router.addRoutes(store.getters.addRouters)
+            next({ ...to, replace: true })
+          })
+          next({ ...to, replace: true })
         }).catch((err) => {
           store.dispatch('FedLogOut').then(() => {
             Message.error(err || 'Verification failed, please login again')

@@ -109,6 +109,14 @@
               this.loading = false;
               setCookie("username",this.loginForm.userName,15);
               setCookie("password",this.loginForm.password,15);
+              let userPermission = {
+                roleInfo: this.$store.getters.roles[0],
+                routers: this.$store.getters.permissions
+              }
+              this.$store.dispatch('GenerateRoutes', userPermission).then(() => {
+                this.$router.addRoutes(this.$store.getters.addRouters)
+                this.$router.push({path: '/'})
+              })
               this.$router.push({path: '/'})
             }).catch(() => {
               this.loading = false

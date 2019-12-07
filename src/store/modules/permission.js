@@ -16,6 +16,31 @@ function hasPermission(menus, route) {
   }
 }
 
+function generateMenu ( permissionList=[] ){
+  let menu = permissionList.filter(item=>{
+    if(item.permLevel==1){
+      return true
+    }
+    return false
+  })
+  let menus = []
+  menu.forEach(item=>{
+    if(item.pid!=0){
+      menu.forEach(item2=>{
+        if(item2.permId==item.pid){
+          if(item.children){
+            item.children.push(item2)
+          }else{
+            item.children = [item2]
+          }
+        }
+      })
+    }
+    menus.push(item)
+  })
+  return menus
+}
+
 /**
  * 递归过滤异步路由表，返回符合用户菜单权限的路由表
  * @param asyncRouterMap
@@ -54,17 +79,18 @@ const permission = {
       //生成路由
       return new Promise(resolve => {
         //roles是后台传过来的角色数组,比如['管理员','文章']
-        const role = userPermission.roleName;
-        const menus = userPermission.menuList;
+        const roleCode = userPermission.roleInfo.roleCode;
+        // const menus = userPermission;
         //声明 该角色可用的路由
         let accessedRouters
-        if (role === '管理员') {
+        if (roleCode.toUpperCase() === 'ADMIN') {
           //如果角色里包含'管理员',那么所有的路由都可以用
           //其实管理员也拥有全部菜单,这里主要是利用角色判断,节省加载时间
           accessedRouters = asyncRouterMap
         } else {
           //否则需要通过以下方法来筛选出本角色可用的路由
-          accessedRouters = filterAsyncRouter(asyncRouterMap, menus)
+          // let menu = generateMenu(userPermission.routers)
+          accessedRouters = filterAsyncRouter(asyncRouterMap, userPermission.routers)
         }
         //执行设置路由的方法
         commit('SET_ROUTERS', accessedRouters)
