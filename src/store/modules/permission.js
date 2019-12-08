@@ -1,4 +1,4 @@
-import {asyncRouterMap, constantRouterMap} from '@/router/index'
+import { asyncRouterMap, constantRouterMap } from '@/router/index'
 
 /**
  * 判断用户是否拥有此菜单
@@ -6,59 +6,78 @@ import {asyncRouterMap, constantRouterMap} from '@/router/index'
  * @param route
  */
 function hasPermission(menus, route) {
-  if (route.menu) {
-    /*
-    * 如果这个路由有menu属性,就需要判断用户是否拥有此menu权限
-    */
-    return menus.indexOf(route.menu) > -1;
+  if (route.name) {
+    return menus.permName == route.name;
   } else {
     return true
   }
 }
 
-function generateMenu ( permissionList=[] ){
-  let menu = permissionList.filter(item=>{
-    if(item.permLevel==1){
+function generateMenu(permissionList = []) {
+  let menu = permissionList.filter(item => {
+    if (item.permLevel == 1 || item.permLevel == 2) {
       return true
     }
     return false
   })
-  let menus = []
-  menu.forEach(item=>{
-    if(item.pid!=0){
-      menu.forEach(item2=>{
-        if(item2.permId==item.pid){
-          if(item.children){
-            item.children.push(item2)
-          }else{
-            item.children = [item2]
-          }
+  let menus = menu.filter(item => item.pid == 0)
+  menus.forEach(item => {
+    menu.forEach(item2 => {
+      if (item.permId == item2.pid) {
+        if (item.children) {
+          item.children.push(item2)
+        } else {
+          item.children = [item2]
         }
-      })
-    }
-    menus.push(item)
+      }
+    })
   })
+  console.log(menus)
   return menus
 }
 
-/**
- * 递归过滤异步路由表，返回符合用户菜单权限的路由表
- * @param asyncRouterMap
- * @param menus
- */
-function filterAsyncRouter(asyncRouterMap, menus) {
-  const accessedRouters = asyncRouterMap.filter(route => {
-    //filter,js语法里数组的过滤筛选方法
-    if (hasPermission(menus, route)) {
-      if (route.children && route.children.length) {
-        //如果这个路由下面还有下一级的话,就递归调用
-        route.children = filterAsyncRouter(route.children, menus)
-        //如果过滤一圈后,没有子元素了,这个父级菜单就也不显示了
-        return (route.children && route.children.length)
-      }
-      return true
+function getRootRouter(accessedRouters, name) {
+  let result = null;
+  accessedRouters.forEach(item => {
+    if (item.name == name) {
+      result = item;
     }
-    return false
+  });
+  return result;
+}
+
+function generateChildrenRouter(name, children) {
+  let result = null;
+  children.forEach(item => {
+    if (item.name == name) {
+      result = item;
+    }
+  });
+  return result;
+}
+
+function filterAsyncRouter(asyncRouterMap, menus) {
+  const accessedRouters = []
+  menus.forEach(menu => {
+    let rootRouter = getRootRouter(asyncRouterMap, menu.permName)
+    if (rootRouter) {
+      let rootChildren = []
+      if (menu.children) {
+        menu.children.forEach(router => {
+          if (rootRouter.children) {
+
+            let child = generateChildrenRouter(router.permName, rootRouter.children)
+            if (child) {
+              rootChildren.push(child)
+            }
+          }
+          // generateChildrenRouter(asyncRouterMap.children,menus.children)
+        })
+        rootRouter.children = rootChildren;
+        accessedRouters.push(rootRouter);
+      }
+    }
+
   })
   return accessedRouters
 }
@@ -75,24 +94,10 @@ const permission = {
     }
   },
   actions: {
-    GenerateRoutes({commit}, userPermission) {
-      //生成路由
+    GenerateRoutes({ commit }, userPermission) {
       return new Promise(resolve => {
-        //roles是后台传过来的角色数组,比如['管理员','文章']
-        const roleCode = userPermission.roleInfo.roleCode;
-        // const menus = userPermission;
-        //声明 该角色可用的路由
-        let accessedRouters
-        if (roleCode.toUpperCase() === 'ADMIN') {
-          //如果角色里包含'管理员',那么所有的路由都可以用
-          //其实管理员也拥有全部菜单,这里主要是利用角色判断,节省加载时间
-          accessedRouters = asyncRouterMap
-        } else {
-          //否则需要通过以下方法来筛选出本角色可用的路由
-          // let menu = generateMenu(userPermission.routers)
-          accessedRouters = filterAsyncRouter(asyncRouterMap, userPermission.routers)
-        }
-        //执行设置路由的方法
+        let menu = generateMenu(userPermission.routers)
+        let accessedRouters = filterAsyncRouter(asyncRouterMap, menu)
         commit('SET_ROUTERS', accessedRouters)
         resolve()
       })

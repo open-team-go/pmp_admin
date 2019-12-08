@@ -24,31 +24,44 @@ export const constantRouterMap = [
   {
     path: '',
     component: Layout,
-    redirect: '/user/',
+    redirect: '/home/',
+    children:[
+      {
+        path: '', 
+        name: '主页',
+        component: () => import('@/views/home/index'),
+        meta: { title: '主页'},
+      } 
+    ]
   },
 ]
 
 export const asyncRouterMap = [
   {
-    path: '/user',
+    path: '/admin',
     component: Layout,
-    redirect: '/user/',
-    name: '',
-    meta: { title: '用户权限', icon: 'table' },
+    redirect: '/admin/',
+    name: '管理员管理',
     children: [
       {
         path: '', 
-        name: '用户列表',
-        component: () => import('@/views/user/user'),
-        meta: { title: '用户列表', icon: 'user' },
-        menu: 'user'
-      },
+        name: '管理员列表',
+        component: () => import('@/views/admin/index'),
+        meta: { title: '管理员列表', icon: 'user' },
+      }      
+    ]
+  },
+  {
+    path: '/role',
+    component: Layout,
+    redirect: '/role/',
+    name: '权限管理',
+    children: [
       {
         path: 'role', 
-        name: '权限管理',
-        component: () => import('@/views/user/role'),
-        meta: { title: '权限管理', icon: 'password' },
-        menu: 'role'
+        name: '角色列表',
+        component: () => import('@/views/role/index'),
+        meta: { title: '角色列表', icon: 'password' },
       },
     ]
   },
@@ -56,69 +69,63 @@ export const asyncRouterMap = [
     path: '/course',
     component: Layout,
     redirect: '/course',
+    name:'课程管理',
     children: [{
       path: '',
-      name: '课程管理',
+      name: '课程列表',
       component: () => import('@/views/course/index'),
-      meta: { title: '课程管理', icon: 'table' }
+      meta: { title: '课程列表', icon: 'table' }
     }]
   },
   {
     path: '/place',
     component: Layout,
     redirect: '/place',
+    name:'教学点管理',
     children: [{
       path: '',
-      name: '教学点管理',
+      name: '教学点列表',
       component: () => import('@/views/place/index'),
-      meta: { title: '教学点管理', icon: 'table' }
+      meta: { title: '教学点列表', icon: 'table' }
     }]
   },
   {
     path: '/class',
     component: Layout,
     redirect: '/class',
+    name:'班级管理',
     children: [{
       path: '',
-      name: '班级管理',
+      name: '班级列表',
       component: () => import('@/views/home/index'),
-      meta: { title: '班级管理', icon: 'table' }
+      meta: { title: '班级列表', icon: 'table' }
     }]
   },
   {
     path: '/student ',
     component: Layout,
     redirect: '/student',
+    name:'学员管理',
     children: [{
       path: '',
-      name: '学员管理',
+      name: '学员列表',
       component: () => import('@/views/student/index'),
-      meta: { title: '学员管理', icon: 'table' }
+      meta: { title: '学员列表', icon: 'table' }
     }]
   },
   {
     path: '/logs ',
     component: Layout,
     redirect: '/logs',
+    name:'日志管理',
     children: [{
       path: '',
-      name: '日志管理',
+      name: '日志列表',
       component: () => import('@/views/logs/index'),
-      meta: { title: '日志管理', icon: 'table' }
+      meta: { title: '日志列表', icon: 'table' }
     }]
   },
-  {
-    path: '/region ',
-    component: Layout,
-    redirect: '/region',
-    children: [{
-      path: '',
-      name: '省市县管理',
-      component: () => import('@/views/home/index'),
-      meta: { title: '省市县管理', icon: 'table' }
-    }]
-  },
-  { path: '*', redirect: '/404', hidden: true }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
 
 export default new Router({
