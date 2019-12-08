@@ -47,7 +47,10 @@ exports.cssLoaders = function (options) {
     if (options.extract) {
       return ExtractTextPlugin.extract({
         use: loaders,
-        fallback: 'vue-style-loader'
+        fallback: 'vue-style-loader',
+        // fix elementui prod icon missing bugs 
+        // https://www.jianshu.com/p/7d59213427a9
+        publicPath: '../../'
       })
     } else {
       return ['vue-style-loader'].concat(loaders)

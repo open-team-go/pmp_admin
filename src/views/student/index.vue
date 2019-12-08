@@ -8,11 +8,103 @@
       </div>
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
-          <el-form-item label="输入搜索：">
+          <el-form-item>
             <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="名称"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="listQuery.useOn" clearable placeholder="是否使用">
+            <el-input style="width: 203px" v-model="listQuery.email" placeholder="邮箱"></el-input>
+          </el-form-item>
+           <el-form-item>
+            <el-input style="width: 203px" v-model="listQuery.identityNo" placeholder="身份证"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-input style="width: 203px" v-model="listQuery.qq" placeholder="QQ号"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-input style="width: 203px" v-model="listQuery.wechatNo" placeholder="微信号"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-select v-model="listQuery.courseId" clearable placeholder="课程名称">
+              <el-option
+                v-for="item in useOnoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-select v-model="listQuery.educationAdminId" clearable placeholder="教务员">
+              <el-option
+                v-for="item in useOnoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-select v-model="listQuery.educationId" clearable placeholder="学历">
+              <el-option
+                v-for="item in useOnoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-select v-model="listQuery.gender" clearable placeholder="性别">
+              <el-option
+                v-for="item in useOnoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+           <el-form-item>
+            <el-select v-model="listQuery.graduationStatus" clearable placeholder="结业状态">
+              <el-option
+                v-for="item in useOnoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-select v-model="listQuery.placeId" clearable placeholder="教学点">
+              <el-option
+                v-for="item in useOnoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+           <el-form-item>
+            <el-select v-model="listQuery.salesAdminId" clearable placeholder="顾问员">
+              <el-option
+                v-for="item in useOnoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+           <el-form-item>
+            <el-select v-model="listQuery.typeId" clearable placeholder="支付类型">
+              <el-option
+                v-for="item in useOnoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+           <el-form-item>
+            <el-select v-model="listQuery.userType" clearable placeholder="学员类型">
               <el-option
                 v-for="item in useOnoptions"
                 :key="item.value"
@@ -34,24 +126,23 @@
         <el-table-column label="姓名" align="center">
           <template slot-scope="scope">{{scope.row.userName}}</template>
         </el-table-column>
-        <el-table-column label="班级信息" align="center">
-          <template slot-scope="scope">{{scope.row.roomInfo}}</template>
+        <el-table-column label="班级名称" align="center">
+          <template slot-scope="scope">{{scope.row.roomInfo ? scope.row.roomInfo.roomName : '' }}</template>
         </el-table-column>
-        <el-table-column label="所学专业" align="center">
-          <template slot-scope="scope">{{scope.row.schoolMajor}}</template>
+        <el-table-column label="顾问名称" align="center">
+          <template slot-scope="scope">{{scope.row.adminInfo? scope.row.adminInfo.userName: ''}}</template>
+        </el-table-column>
+         <el-table-column label="学员类型" align="center" :formatter="FormatStudentType"></el-table-column>
+        <el-table-column label="性别" align="center">
+          <template slot-scope="scope">{{scope.row.gender==0 ? '女':'男'}}</template>
         </el-table-column>
         <el-table-column label="联系电话" align="center">
           <template slot-scope="scope">{{scope.row.phoneNo}}</template>
-        </el-table-column>
-        <el-table-column label="学员类型" align="center">
-          <template slot-scope="scope">{{scope.row.userType}}</template>
-        </el-table-column>
-        <el-table-column label="备注" align="center">
-          <template slot-scope="scope">{{scope.row.remark}}</template>
-        </el-table-column>
-        <el-table-column label="操作" width="200" align="center">
+        </el-table-column>       
+        <el-table-column label="创建时间" align="center" :formatter="FormatDate"></el-table-column>
+        <el-table-column label="操作" width="230" align="center">
           <template slot-scope="scope">
-            <el-button size="mini">查看</el-button>
+            <el-button size="mini" @click="handleViewDetail(scope.$index, scope.row)">查看</el-button>
             <el-button size="mini" @click="handleUpdate(scope.$index, scope.row)">编辑</el-button>
             <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
@@ -71,34 +162,11 @@
         :hide-on-single-page="true"
       ></el-pagination>
     </div>
-    <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="500px">
-      <el-form :model="formData" ref="formData" label-width="150px" size="small">
-        <el-form-item label="名称：">
-          <el-input v-model="formData.courseName" style="width: 250px"></el-input>
-        </el-form-item>
-        <el-form-item label="描述：">
-          <el-input v-model="formData.courseDesc" type="textarea" style="width: 250px"></el-input>
-        </el-form-item>
-        <el-form-item label="是否使用">
-          <el-switch v-model="formData.useOn"></el-switch>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handleDialogConfirm()" size="small">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 <script>
 const studentService = require("@/api/student");
-
-const defaultFormData = {
-  courseId: null,
-  courseName: null,
-  courseDesc: null,
-  useOn: null
-};
+import dayjs from "dayjs";
 
 const useOnoptions = [
   { label: "可使用", value: true },
@@ -113,29 +181,26 @@ export default {
         keyword: "",
         pageNum: 1,
         pageSize: 10,
-        courseId: 0,
-        educationAdminId: 0,
-        educationId: 0,
+        courseId: "",
+        educationAdminId: "",
+        educationId: "",
         email: "",
-        endTime: 0,
+        endTime: "",
         gender: true,
-        graduationStatus: 0,
+        graduationStatus: "",
         identityNo: "",
-        placeId: 0,
+        placeId: "",
         qq: "",
-        roomId: 0,
-        salesAdminId: 0,
-        startTime: 0,
-        typeId: 0,
-        userType: 0,
+        roomId: "",
+        salesAdminId: "",
+        startTime: "",
+        typeId: "",
+        userType: "",
         wechatNo: ""
       },
       list: null,
       total: null,
       listLoading: true,
-      dialogVisible: false,
-      formData: Object.assign({}, defaultFormData),
-      isEdit: false,
       useOnoptions
     };
   },
@@ -166,15 +231,14 @@ export default {
           this.total = 0;
         });
     },
+    handleViewDetail(index, row) {
+      this.$router.push({path:'/student/detail',query:{id:row.id}})
+    },
     handleUpdate(index, row) {
-      this.dialogVisible = true;
-      this.isEdit = true;
-      this.formData = Object.assign({}, row);
+      this.$router.push({path:'/student/edit',query:{id:row.id}})
     },
     handleAdd(index, row) {
-      this.dialogVisible = true;
-      this.isEdit = false;
-      this.formData = Object.assign({}, defaultFormData);
+      this.$router.push({path:'/student/edit'})
     },
     handleDelete(index, row) {
       this.$confirm("是否删除", "提示", {
@@ -209,49 +273,39 @@ export default {
       this.listQuery.pageNum = 1;
       this.getList();
     },
-    handleDialogConfirm() {
-      const data = this.formData;
-      if (this.isEdit) {
-        studentService.update(data).then(res => {
-          this.$message({
-            message: "修改成功！",
-            type: "success"
-          });
-          this.dialogVisible = false;
-          this.getList();
-        });
-      } else {
-        studentService.add(data).then(response => {
-          this.$message({
-            message: "添加成功！",
-            type: "success"
-          });
-          this.dialogVisible = false;
-          this.getList();
-        });
-      }
+    // handleDialogConfirm() {
+    //   const data = this.formData;
+    //   if (this.isEdit) {
+    //     studentService.update(data).then(res => {
+    //       this.$message({
+    //         message: "修改成功！",
+    //         type: "success"
+    //       });
+    //       this.dialogVisible = false;
+    //       this.getList();
+    //     });
+    //   } else {
+    //     studentService.add(data).then(response => {
+    //       this.$message({
+    //         message: "添加成功！",
+    //         type: "success"
+    //       });
+    //       this.dialogVisible = false;
+    //       this.getList();
+    //     });
+    //   }
+    // },
+    FormatDate(row){
+      return dayjs(row.createTime * 1000).format("YYYY-MM-DD HH:mm:ss");
     },
-    handleStatusChange(index, row) {
-      this.$confirm("是否要修改该状态?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          studentService.update(row).then(res => {
-            this.$message({
-              message: "修改成功！",
-              type: "success"
-            });
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "取消修改"
-          });
-          this.getList();
-        });
+    FormatStudentType(row){
+      const type = row.userType || 0
+      switch (type){
+        case 1:{ return '内部学员' }
+        case 2:{ return '内部学员' }
+        case 3:{ return '内部学员' }
+        default: return '未知'
+      }
     }
   }
 };

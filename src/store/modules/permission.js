@@ -98,6 +98,8 @@ const permission = {
       return new Promise(resolve => {
         let menu = generateMenu(userPermission.routers)
         let accessedRouters = filterAsyncRouter(asyncRouterMap, menu)
+        var fixRouter = [{ path: '*', redirect: '/404', hidden: true }]
+        accessedRouters.push(...fixRouter)
         commit('SET_ROUTERS', accessedRouters)
         resolve()
       })

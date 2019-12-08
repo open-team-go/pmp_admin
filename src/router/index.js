@@ -111,6 +111,20 @@ export const asyncRouterMap = [
       name: '学员列表',
       component: () => import('@/views/student/index'),
       meta: { title: '学员列表', icon: 'table' }
+    },
+    {
+      path: '',
+      name: '学员详情',
+      component: () => import('@/views/student/detail'),
+      meta: { title: '学员详情', icon: 'table' },
+      hidden: true
+    },
+    {
+      path: '',
+      name: '学员编辑',
+      component: () => import('@/views/student/edit'),
+      meta: { title: '学员编辑', icon: 'table' },
+      hidden: true
     }]
   },
   {
