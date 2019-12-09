@@ -24,7 +24,17 @@
             <el-input style="width: 203px" v-model="listQuery.wechatNo" placeholder="微信号"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="listQuery.courseId" clearable placeholder="课程名称">
+            <el-select v-model="listQuery.courseId" @focus="getCourseList" filterable clearable  placeholder="课程名称">
+              <el-option
+                v-for="item in courseList"
+                :key="item.courseId"
+                :label="item.courseName"
+                :value="item.courseId"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-select v-model="listQuery.educationAdminId" filterable clearable placeholder="教务员">
               <el-option
                 v-for="item in useOnoptions"
                 :key="item.value"
@@ -34,29 +44,19 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="listQuery.educationAdminId" clearable placeholder="教务员">
+            <el-select v-model="listQuery.educationId" @focus="getEducationList" clearable placeholder="学历">
               <el-option
-                v-for="item in useOnoptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-select v-model="listQuery.educationId" clearable placeholder="学历">
-              <el-option
-                v-for="item in useOnoptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in educationList"
+                :key="item.educationId"
+                :label="item.educationName"
+                :value="item.educationId"
               ></el-option>
             </el-select>
           </el-form-item>
           <el-form-item>
             <el-select v-model="listQuery.gender" clearable placeholder="性别">
               <el-option
-                v-for="item in useOnoptions"
+                v-for="item in gendeOptions"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -66,7 +66,7 @@
            <el-form-item>
             <el-select v-model="listQuery.graduationStatus" clearable placeholder="结业状态">
               <el-option
-                v-for="item in useOnoptions"
+                v-for="item in graduationStatusOptions"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -74,7 +74,17 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="listQuery.placeId" clearable placeholder="教学点">
+            <el-select v-model="listQuery.placeId" @focus="getPlaceList" filterable  clearable placeholder="教学点">
+              <el-option
+                v-for="item in placeOptions"
+                :key="item.placeId"
+                :label="item.placeName"
+                :value="item.placeId"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+           <el-form-item>
+            <el-select v-model="listQuery.salesAdminId" filterable clearable placeholder="顾问员">
               <el-option
                 v-for="item in useOnoptions"
                 :key="item.value"
@@ -84,35 +94,37 @@
             </el-select>
           </el-form-item>
            <el-form-item>
-            <el-select v-model="listQuery.salesAdminId" clearable placeholder="顾问员">
+            <el-select v-model="listQuery.typeId" @focus="getPayTypeList" clearable placeholder="支付类型">
               <el-option
-                v-for="item in useOnoptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-           <el-form-item>
-            <el-select v-model="listQuery.typeId" clearable placeholder="支付类型">
-              <el-option
-                v-for="item in useOnoptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in payTypeOptions"
+                :key="item.payId"
+                :label="item.payName"
+                :value="item.payId"
               ></el-option>
             </el-select>
           </el-form-item>
            <el-form-item>
             <el-select v-model="listQuery.userType" clearable placeholder="学员类型">
               <el-option
-                v-for="item in useOnoptions"
+                v-for="item in userTypeOptions"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
               ></el-option>
             </el-select>
           </el-form-item>
+           <el-form-item>
+             <el-date-picker
+                v-model="datePicker"
+                @change="changeDatePicker"
+                type="datetimerange"
+                value-format="timestamp"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期">
+              </el-date-picker>
+          </el-form-item>
+         
         </el-form>
       </div>
     </el-card>
@@ -166,12 +178,35 @@
 </template>
 <script>
 const studentService = require("@/api/student");
+import {fetchAllList as fetchCourseList } from '@/api/course'
+import {fetchAllList as fetchPlaceList } from '@/api/place'
 import dayjs from "dayjs";
 
 const useOnoptions = [
   { label: "可使用", value: true },
   { label: "不可使用", value: false }
 ];
+
+const defaultGende = [
+  {label:'女',value:0},
+  {label:'男',value:1},
+]
+
+// 毕业状态
+const defalutGraduationStatus = [
+  {label:'未知',value:0},
+  {label:'通过',value:1},
+  {label:'未通过',value:2},
+  {label:'缓考',value:3},
+  {label:'缓读',value:4},
+]
+
+// 学员类型
+const defaultUserType = [
+  {label:'内部学员',value:1},
+  {label:'外部续证学员',value:2},
+  {label:'联系中未报名',value:3},
+]
 
 export default {
   name: "userList",
@@ -186,7 +221,7 @@ export default {
         educationId: "",
         email: "",
         endTime: "",
-        gender: true,
+        gender: "",
         graduationStatus: "",
         identityNo: "",
         placeId: "",
@@ -201,18 +236,67 @@ export default {
       list: null,
       total: null,
       listLoading: true,
+      courseList:[],
+      educationList:[],
+      gendeOptions:defaultGende,
+      graduationStatusOptions:defalutGraduationStatus,
+      userTypeOptions:defaultUserType,
+      payTypeOptions:[],
+      placeOptions:[],
+      datePicker:[],
       useOnoptions
     };
   },
   created() {
     this.getList();
   },
-  computed: {
-    dialogTitle: function() {
-      return this.isEdit ? "修改课程" : "添加课程";
-    }
-  },
   methods: {
+    changeDatePicker(val){
+      if(val && val.length){
+        this.listQuery.startTime = val[0]/1000
+        this.listQuery.endTime = val[1]/1000
+      }else{
+        this.listQuery.startTime = ""
+        this.listQuery.endTime = ""
+      }
+    },
+    getPlaceList(){
+      if(!this.placeOptions.length){
+        fetchPlaceList().then(res=>{
+          this.placeOptions = res.data
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
+    },    
+    getCourseList(){
+      if(!this.courseList.length){
+        fetchCourseList().then(res=>{
+          this.courseList = res.data
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
+      
+    },
+    getEducationList(){
+      if(!this.educationList.length){
+        studentService.education().then(res=>{
+          this.educationList = res.data
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
+    },
+    getPayTypeList(){
+      if(!this.payTypeOptions.length){
+        studentService.payType().then(res=>{
+          this.payTypeOptions = res.data
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
+    },
     getList() {
       this.listLoading = true;
       studentService
@@ -248,7 +332,7 @@ export default {
       }).then(() => {
         studentService
           .del({
-            Id: row.studentId
+            id: row.studentId
           })
           .then(res => {
             this.$message({
