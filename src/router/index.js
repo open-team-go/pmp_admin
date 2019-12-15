@@ -102,10 +102,11 @@ export const asyncRouterMap = [
     }]
   },
   {
-    path: '/student ',
+    path: '/student',
     component: Layout,
     redirect: '/student',
     name:'学员管理',
+    meta: { title: '学员管理', icon: 'table' },
     children: [{
       path: '',
       name: '学员列表',
@@ -120,9 +121,16 @@ export const asyncRouterMap = [
       hidden: true
     },
     {
+      path: 'add',
+      name: '新增学员',
+      component: () => import('@/views/student/add'),
+      meta: { title: '新增学员', icon: 'table' },
+      hidden: true
+    },
+    {
       path: 'edit',
       name: '学员编辑',
-      component: () => import('@/views/student/edit'),
+      component: () => import('@/views/student/update'),
       meta: { title: '学员编辑', icon: 'table' },
       hidden: true
     }]

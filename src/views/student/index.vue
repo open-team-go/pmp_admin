@@ -34,12 +34,12 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="listQuery.educationAdminId" filterable clearable placeholder="教务员">
+            <el-select v-model="listQuery.educationAdminId" @focus="GetEduersList" filterable clearable placeholder="教务员">
               <el-option
-                v-for="item in useOnoptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in eduerOptions"
+                :key="item.adminId"
+                :label="item.nickname"
+                :value="item.adminId"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -84,12 +84,12 @@
             </el-select>
           </el-form-item>
            <el-form-item>
-            <el-select v-model="listQuery.salesAdminId" filterable clearable placeholder="顾问员">
+            <el-select v-model="listQuery.salesAdminId" @focus="GetSalesList" filterable clearable placeholder="顾问员">
               <el-option
-                v-for="item in useOnoptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in salesOptions"
+                :key="item.adminId"
+                :label="item.nickname"
+                :value="item.adminId"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -180,12 +180,8 @@
 const studentService = require("@/api/student");
 import {fetchAllList as fetchCourseList } from '@/api/course'
 import {fetchAllList as fetchPlaceList } from '@/api/place'
+import {search as searchAdminApi } from '@/api/admin'
 import dayjs from "dayjs";
-
-const useOnoptions = [
-  { label: "可使用", value: true },
-  { label: "不可使用", value: false }
-];
 
 const defaultGende = [
   {label:'女',value:0},
@@ -237,20 +233,39 @@ export default {
       total: null,
       listLoading: true,
       courseList:[],
-      educationList:[],
+      educationList:[],//学历
       gendeOptions:defaultGende,
       graduationStatusOptions:defalutGraduationStatus,
       userTypeOptions:defaultUserType,
       payTypeOptions:[],
       placeOptions:[],
       datePicker:[],
-      useOnoptions
+      salesOptions:[],
+      eduerOptions:[]
     };
   },
   created() {
     this.getList();
   },
   methods: {
+    GetSalesList(){
+      if(!this.salesOptions.length){
+        searchAdminApi({roleId:3}).then(res=>{
+          this.salesOptions = res.data
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
+    },
+    GetEduersList(){
+      if(!this.eduerOptions.length){
+        searchAdminApi({roleId:4}).then(res=>{
+          this.eduerOptions = res.data
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
+    },
     changeDatePicker(val){
       if(val && val.length){
         this.listQuery.startTime = val[0]/1000
@@ -279,6 +294,7 @@ export default {
       }
       
     },
+    // 获取学历
     getEducationList(){
       if(!this.educationList.length){
         studentService.education().then(res=>{
@@ -316,13 +332,13 @@ export default {
         });
     },
     handleViewDetail(index, row) {
-      this.$router.push({path:'/student/detail',query:{id:row.id}})
+      this.$router.push({path:'/student/detail',query:{id:row.userId}})
     },
     handleUpdate(index, row) {
-      this.$router.push({path:'/student/edit',query:{id:row.id}})
+      this.$router.push({path:'/student/edit',query:{id:row.userId}})
     },
     handleAdd(index, row) {
-      this.$router.push({path:'/student/edit'})
+      this.$router.push({path:'/student/edit',query:{id:row.userId}})
     },
     handleDelete(index, row) {
       this.$confirm("是否删除", "提示", {
@@ -357,28 +373,6 @@ export default {
       this.listQuery.pageNum = 1;
       this.getList();
     },
-    // handleDialogConfirm() {
-    //   const data = this.formData;
-    //   if (this.isEdit) {
-    //     studentService.update(data).then(res => {
-    //       this.$message({
-    //         message: "修改成功！",
-    //         type: "success"
-    //       });
-    //       this.dialogVisible = false;
-    //       this.getList();
-    //     });
-    //   } else {
-    //     studentService.add(data).then(response => {
-    //       this.$message({
-    //         message: "添加成功！",
-    //         type: "success"
-    //       });
-    //       this.dialogVisible = false;
-    //       this.getList();
-    //     });
-    //   }
-    // },
     FormatDate(row){
       return dayjs(row.createTime * 1000).format("YYYY-MM-DD HH:mm:ss");
     },
