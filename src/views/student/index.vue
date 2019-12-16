@@ -338,7 +338,7 @@ export default {
       this.$router.push({path:'/student/edit',query:{id:row.userId}})
     },
     handleAdd(index, row) {
-      this.$router.push({path:'/student/edit'})
+      this.$router.push({path:'/student/add'})
     },
     handleDelete(index, row) {
       this.$confirm("是否删除", "提示", {
