@@ -97,7 +97,7 @@ export const asyncRouterMap = [
     children: [{
       path: '',
       name: '班级列表',
-      component: () => import('@/views/home/index'),
+      component: () => import('@/views/room/index'),
       meta: { title: '班级列表', icon: 'table' }
     }]
   },
