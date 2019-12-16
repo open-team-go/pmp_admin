@@ -102,7 +102,7 @@
         <el-row>
           <el-col :span="6" class="table-cell">{{userInfo.graduationSchool}}</el-col>
           <el-col :span="6" class="table-cell">{{userInfo.schoolMajor}}</el-col>
-          <el-col :span="6" class="table-cell">{{userInfo.graduationStatus}}</el-col>
+          <el-col :span="6" class="table-cell">{{userInfo.graduationStatus | filterEduStatus}}</el-col>
           <el-col :span="6" class="table-cell">{{userInfo.graduationTime | filterTime}}</el-col>
         </el-row>
       </div>
@@ -151,8 +151,8 @@
       filterUserType(type){
         switch (type){
           case 1: return '内部学员'
-          case 1: return '外部续证学员'
-          case 1: return '联系中未报名'
+          case 2: return '外部续证学员'
+          case 3: return '联系中未报名'
           default: return '未知'
         }
       },
@@ -164,6 +164,16 @@
       },
       filterBirthTime(time){
        return dayjs(time * 1000).format("YYYY年MM月DD号");
+      },
+      filterEduStatus(status){
+         switch (status){
+          case 0: return '未知'
+          case 1: return '通过'
+          case 2: return '未通过'
+          case 3: return '缓考'
+          case 4: return '缓读'
+          default: return '未知'
+        }
       }
     },
     created() {
