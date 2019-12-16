@@ -15,35 +15,35 @@
         <div style="margin-top: 15px">
           <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
             <el-form-item label="输入搜索：">
-              <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="名称"></el-input>
+              <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="名称/编号 "></el-input>
             </el-form-item>
             <el-form-item>
-              <el-select v-model="listQuery.useOn" clearable placeholder="用户名">
+              <el-select v-model="listQuery.adminId" @focus="getEduAdminList" filterable clearable placeholder="教务名">
               <el-option
-                v-for="item in useOnoptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                v-for="item in eduAdminList"
+                :key="item.adminId"
+                :label="item.nickname"
+                :value="item.adminId">
               </el-option>
             </el-select>
             </el-form-item>
             <el-form-item>
-              <el-select v-model="listQuery.useOn" clearable placeholder="课程名">
+              <el-select v-model="listQuery.courseId" @focus="getCourseList" filterable clearable placeholder="课程名">
               <el-option
-                v-for="item in useOnoptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                v-for="item in courseList"
+                :key="item.courseId"
+                :label="item.courseName"
+                :value="item.courseId">
               </el-option>
             </el-select>
             </el-form-item>
             <el-form-item>
-              <el-select v-model="listQuery.useOn" clearable placeholder="教学点名称">
+              <el-select v-model="listQuery.placeId" @focus="getPlaceList" filterable clearable placeholder="教学点名称">
               <el-option
-                v-for="item in useOnoptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                v-for="item in placeList"
+                :key="item.placeId"
+                :label="item.placeName"
+                :value="item.placeId">
               </el-option>
             </el-select>
             </el-form-item>
@@ -72,16 +72,37 @@
                 v-loading="listLoading"
                 border>
         <el-table-column label="名称" align="center">
-          <template slot-scope="scope">{{scope.row.courseName}}</template>
+          <template slot-scope="scope">{{scope.row.roomInfo.roomName}}</template>
         </el-table-column>
         <el-table-column label="描述" align="center">
-          <template slot-scope="scope">{{scope.row.courseDesc}}</template>
+          <template slot-scope="scope">{{scope.row.roomInfo.roomDesc}}</template>
+        </el-table-column>
+        <el-table-column label="编号" align="center">
+          <template slot-scope="scope">{{scope.row.roomInfo.roomCode}}</template>
+        </el-table-column>
+        <el-table-column label="教师" align="center">
+          <template slot-scope="scope">{{scope.row.roomInfo.teacherName}}</template>
+        </el-table-column>
+        <el-table-column label="课程" align="center">
+          <template  v-if="scope.row.courseInfo !=null" slot-scope="scope">{{scope.row.courseInfo.courseName}}</template>
+        </el-table-column>
+        <el-table-column label="教学点" align="center">
+          <template v-if="scope.row.placeInfo !=null" slot-scope="scope">{{scope.row.placeInfo.placeName}}</template>
+        </el-table-column>
+        <el-table-column label="教务" align="center">
+          <template  v-if="scope.row.adminInfo !=null" slot-scope="scope">{{scope.row.adminInfo.nickname}}</template>
+        </el-table-column>
+        <el-table-column label="教学方式" align="center">
+          <template  v-if="scope.row.typeInfo !=null" slot-scope="scope">{{scope.row.typeInfo.typeName}}</template>
+        </el-table-column>
+        <el-table-column label="排序" align="center">
+          <template slot-scope="scope">{{scope.row.roomInfo.sort}}</template>
         </el-table-column>
         <el-table-column label="是否使用" align="center">
           <template slot-scope="scope">
             <el-switch
-              v-model="scope.row.useOn"
-              @change="handleStatusChange(scope.$index, scope.row)">
+              v-model="scope.row.roomInfo.useOn"
+              @change="handleStatusChange(scope.$index, scope.row.roomInfo)">
           </el-switch>
           </template>
         </el-table-column>
@@ -121,13 +142,58 @@
                ref="formData"
                label-width="150px" size="small">
         <el-form-item label="名称：">
-          <el-input v-model="formData.courseName" style="width: 250px"></el-input>
+          <el-input v-model="formData.roomInfo.roomName" style="width: 250px"></el-input>
         </el-form-item>
         <el-form-item label="描述：">
-         <el-input v-model="formData.courseDesc"  type="textarea" style="width: 250px"></el-input>
+         <el-input v-model="formData.roomInfo.roomDesc"  type="textarea" style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="编号：">
+         <el-input v-model="formData.roomInfo.roomCode"  style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="排序：">
+         <el-input v-model="formData.roomInfo.sort" type="number" style="width: 250px"></el-input>
         </el-form-item>
         <el-form-item label="是否使用">
-         <el-switch  v-model="formData.useOn"></el-switch>
+         <el-switch  v-model="formData.roomInfo.useOn"></el-switch>
+        </el-form-item>
+        <el-form-item label="教师：">
+         <el-input v-model="formData.roomInfo.teacherName" style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="教师联系电话：">
+         <el-input v-model="formData.roomInfo.teacherPhone" style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="所授课程：">
+            <el-select v-model="formData.courseInfo.courseId" @focus="getCourseList" filterable clearable placeholder="所授课程：">
+              <el-option
+                v-for="item in courseList"
+                :key="item.courseId"
+                :label="item.courseName"
+                :value="item.courseId">
+              </el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="教学点：">
+            <el-select v-model="formData.placeInfo.placeId" @focus="getPlaceList" filterable clearable placeholder="教学点：">
+              <el-option
+                v-for="item in placeList"
+                :key="item.placeId"
+                :label="item.placeName"
+                :value="item.placeId">
+              </el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="详细地址：">
+         <el-input v-model="formData.roomInfo.roomAddress" type="textarea" style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="教务员：">
+            <el-select v-model="formData.adminInfo.adminId" @focus="getEduAdminList" filterable clearable placeholder="教务员：">
+              <el-option
+                v-for="item in eduAdminList"
+                :key="item.adminId"
+                :label="item.nickname"
+                :value="item.adminId">
+              </el-option>
+            </el-select>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -138,13 +204,19 @@
   </div>
 </template>
 <script>
-  const courseService = require('@/api/course')
+  const roomService = require('@/api/room')
+import {fetchAllList as fetchCourseList } from '@/api/course'
+import {fetchAllList as fetchPlaceList } from '@/api/place'
+import {search as fetchAdminList } from '@/api/admin'
+import dayjs from "dayjs";
 
   const defaultFormData = {
-    courseId: null,
-    courseName: null,
-    courseDesc: null,
-    useOn: null
+    roomId: null,
+    adminInfo: {},
+    courseInfo : {},
+    placeInfo : {},
+    roomInfo :{},
+    typeInfo:{}
   };
 
   const useOnoptions = [
@@ -153,11 +225,17 @@
   ]
 
   export default {
-    name: 'userList',
+    name: 'roomList',
     data() {
       return {
         listQuery: {
           keyword: "",
+          adminId: null,
+          courseId: null,
+          placeId: null,
+          typeId: null,
+          startTime: null,
+          endTime: null,
           pageNum: 1,
           pageSize: 10,
           useOn: null
@@ -168,22 +246,65 @@
         dialogVisible: false,
         formData: Object.assign({}, defaultFormData),
         isEdit: false,
-        useOnoptions
+        useOnoptions,
+        eduAdminList:null,
+        courseList:null,
+        placeList:null
       }
     },
     created() {
       this.getList();
+      console.log("===")
+      this.getEduAdminList();
+      this.getCourseList();
+      this.getPlaceList();
     },
     computed:{
       dialogTitle:function(){
-        return  this.isEdit ?  '修改课程' : '添加课程'
+        return  this.isEdit ?  '修改班级' : '添加班级'
       }
     },
     methods: {
+          getEduAdminList(){
+            if(!this.eduAdminList){
+              fetchAdminList({roleId:4}).then(res=>{
+                this.eduAdminList = res.data
+              }).catch(err=>{
+                console.log(err)
+              })
+            }
+          },
+          getCourseList(){
+            if(!this.courseList){
+              fetchCourseList().then(res=>{
+                this.courseList = res.data
+              }).catch(err=>{
+                console.log(err)
+              })
+            }
+          },
+          changeDatePicker(val){
+            if(val && val.length){
+              this.listQuery.startTime = val[0]/1000
+              this.listQuery.endTime = val[1]/1000
+            }else{
+              this.listQuery.startTime = ""
+              this.listQuery.endTime = ""
+            }
+          },
+          getPlaceList(){
+            if(!this.placeList){
+              fetchPlaceList().then(res=>{
+                this.placeList = res.data
+              }).catch(err=>{
+                console.log(err)
+              })
+            }
+          },
       // TODO: 是否使用搜索
      getList() {
         this.listLoading = true;
-        courseService.fetchList(this.listQuery).then(res => {
+        roomService.fetchList(this.listQuery).then(res => {
           
           this.listLoading = false;
           this.list = res.data.list;
@@ -194,7 +315,14 @@
           this.listLoading = false;
           this.list = []
           this.total = 0
-        });;
+        });
+      },
+      convertEditorData(target){
+        var data = target.roomInfo;
+        data.adminId=target.adminInfo.adminId;
+        data.courseId=target.courseInfo.courseId;
+        data.placeId=target.placeInfo.placeId;
+        return data;
       },
       handleUpdate(index, row) {
         this.dialogVisible = true;
@@ -212,7 +340,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          courseService.del({
+          roomService.del({
            Id: row.courseId
           }).then(res => {
             this.$message({
@@ -238,9 +366,10 @@
         this.getList();
       },
       handleDialogConfirm() {
-        const data = this.formData
+        const data = this.convertEditorData(this.formData);
+        console.log(data)
         if (this.isEdit) {
-          courseService.update(data).then(res => {
+          roomService.update(data).then(res => {
             this.$message({
               message: '修改成功！',
               type: 'success'
@@ -249,7 +378,7 @@
             this.getList();
           })
         } else {
-          courseService.add(data).then(response => {
+          roomService.add(data).then(response => {
             this.$message({
               message: '添加成功！',
               type: 'success'
@@ -265,7 +394,10 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          courseService.update(row).then(res => {
+          roomService.update({
+            "roomId":row.roomId,
+            "useOn":row.useOn
+          }).then(res => {
             this.$message({
               message: '修改成功！',
               type: 'success'

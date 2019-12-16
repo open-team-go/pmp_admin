@@ -97,7 +97,7 @@ export const asyncRouterMap = [
     children: [{
       path: '',
       name: '班级列表',
-      component: () => import('@/views/home/index'),
+      component: () => import('@/views/room/index'),
       meta: { title: '班级列表', icon: 'table' }
     }]
   },
@@ -122,9 +122,9 @@ export const asyncRouterMap = [
     },
     {
       path: 'add',
-      name: '新增学员',
+      name: '学员新增',
       component: () => import('@/views/student/add'),
-      meta: { title: '新增学员', icon: 'table' },
+      meta: { title: '学员新增', icon: 'table' },
       hidden: true
     },
     {
