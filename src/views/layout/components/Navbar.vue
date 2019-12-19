@@ -12,7 +12,7 @@
           <el-dropdown-item>首页</el-dropdown-item>
         </router-link>
         <el-dropdown-item divided>
-          <span @click="clearConfigCache" style="display:block;">清除系統配置缓存</span>
+          <span @click="clearConfigCache" style="display:block;">清除系统配置缓存</span>
         </el-dropdown-item>
         <el-dropdown-item divided>
           <span @click="logout" style="display:block;">退出</span>

@@ -314,6 +314,13 @@ export default {
     }
   },
   data() {
+    var checkIdentityNo = (rule, value, callback) => {
+      var reg = /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
+      if (!reg.test(value)) {
+          callback(new Error('身份证格式不正确'));
+        } 
+        callback();
+    }
     return {
       formData: Object.assign({}, defaultFormData),
       salesOptions: [],
@@ -324,14 +331,8 @@ export default {
       graduationStatusOptions: defalutGraduationStatus,
       userTypeOptions: defaultUserType,
       rules: {
-        name: [
-          { required: true, message: "请输入品牌名称", trigger: "blur" },
-          {
-            min: 2,
-            max: 140,
-            message: "长度在 2 到 140 个字符",
-            trigger: "blur"
-          }
+        identityNo: [
+          { validator: checkIdentityNo, trigger: "blur" }
         ]
       }
     };
@@ -353,6 +354,11 @@ export default {
         }
       });
     }
+    this.getEducationList()
+    this.GetSalesList()
+    this.getCourseList()
+    this.getRoomList()
+    this.getPayTypeList()
   },
   methods: {
     // 获取学历
@@ -421,29 +427,40 @@ export default {
             cancelButtonText: "取消",
             type: "warning"
           }).then(() => {
-            // if (this.isEdit) {
-            //   studentService.update(this.formData).then(res=>{
-            //   this.$message({
-            //     duration: 1000,
-            //     message: "修改成功",
-            //     type: "success",
-            //   });
-            //   this.$router.back();
-            //   }).catch(err=>{
-            //     this.$message({
-            //     duration: 1000,
-            //     message: err,
-            //     type: "error",
-            //   });
-            //   })
-              
-            // } else {
-            //   studentService.add(this.formData).then(res=>{
-
-            //   }).catch(err=>{
-                
-            //   })
-            // }
+            let formData = Object.assign({},this.formData)
+            if(formData.birthday) formData.birthday = Math.floor(formData.birthday/1000)
+            if(formData.graduationTime) formData.graduationTime = Math.floor(formData.graduationTime/1000)
+            if (this.isEdit) {
+              studentService.update(formData).then(res=>{
+              this.$message({
+                duration: 1000,
+                message: "修改成功",
+                type: "success",
+              });
+              this.$router.back();
+              }).catch(err=>{
+                this.$message({
+                duration: 1000,
+                message: err,
+                type: "error",
+              });
+              })              
+            } else {
+              studentService.add(formData).then(res=>{
+                this.$message({
+                  duration: 1000,
+                  message: "添加成功",
+                  type: "success",
+                });
+                this.$router.back();
+              }).catch(err=>{
+                this.$message({
+                  duration: 1000,
+                  message: err,
+                  type: "error",
+                })
+              })
+            }
           });
         } else {
           this.$message({

@@ -103,7 +103,7 @@
           <el-col :span="6" class="table-cell">{{userInfo.graduationSchool}}</el-col>
           <el-col :span="6" class="table-cell">{{userInfo.schoolMajor}}</el-col>
           <el-col :span="6" class="table-cell">{{userInfo.graduationStatus | filterEduStatus}}</el-col>
-          <el-col :span="6" class="table-cell">{{userInfo.graduationTime | filterTime}}</el-col>
+          <el-col :span="6" class="table-cell">{{userInfo.graduationTime | filterBirthTime}}</el-col>
         </el-row>
       </div>
       <div style="margin-top: 20px">
