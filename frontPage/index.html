@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="assets/css/form-elements.css" />
+	<link rel="stylesheet" href="assets/css/bootstrap-datepicker.min.css" />
 	<link rel="stylesheet" href="assets/css/style.css" />
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -46,19 +47,22 @@
 									<div class="form-group">
 										<label class="sr-only" for="userName">名称</label>
 										<input type="text" name="userName" placeholder="名称"
-											class="form-control" id="userName" />
+											class="form-control" id="userName" required/>
 									</div>
 									<div class="form-group">
 										<label class="sr-only" for="gender">性别</label>
-										<input type="text" name="gender" placeholder="性别" class="form-control" id="gender" />
+										<select class="form-control" id="gender" required name="gender" placeholder="性别" >
+											<option value="1">男</option>
+											<option value="0">女</option>
+										</select>
 									</div>
 									<div class="form-group">
 										<label class="sr-only" for="">出生年月</label>
-										<input  type="text" name="birthday" placeholder="出生年月" class="birthday form-control" id="birthday"></input>
+										<input  type="text" name="birthday" placeholder="出生年月" class="birthday form-control date" id="birthday" required></input>
 									</div>
 									<div class="form-group">
 										<label class="sr-only" for="phoneNo">电话号码</label>
-										<input type="text" name="phoneNo" placeholder="电话号码" class="phoneNo form-control" id="phoneNo" />
+										<input type="text" name="phoneNo" placeholder="电话号码" class="phoneNo form-control" id="phoneNo" required />
 									</div>
 									<div class="form-group">
 										<label class="sr-only" for="fixedTelephone">固定电话</label>
@@ -70,11 +74,11 @@
 									</div>
 									<div class="form-group">
 										<label class="sr-only" for="identityNo">身份证</label>
-										<input type="text" name="identityNo" placeholder="身份证" class="identityNo form-control" id="identityNo" />
+										<input type="text" name="identityNo" placeholder="身份证" class="identityNo form-control" id="identityNo" required />
 									</div>
 									<div class="form-group">
 										<label class="sr-only" for="email">邮箱</label>
-										<input type="text" name="email" placeholder="邮箱" class="email form-control" id="email" />
+										<input type="text" name="email" placeholder="邮箱" class="email form-control" id="email" required />
 									</div>
 									<div class="form-group">
 										<label class="sr-only" for="backupEmail">备用邮箱</label>
@@ -95,17 +99,19 @@
 										<p>当前状况:</p>
 									</div>
 									<div class="form-top-right">
-										<i class="fa fa-key"></i>
+										<i class="fa fa-leaf"></i>
 									</div>
 								</div>
 								<div class="form-bottom">
 									<div class="form-group">
 										<label class="sr-only" for="adminId">课程顾问</label>
-										<input type="text" name="adminId" placeholder="课程顾问..." class="adminId form-control" id="adminId" />
+										<select class="form-control" id="adminId" name="adminId" placeholder="课程顾问" required>
+										</select>
 									</div>
 									<div class="form-group">
 										<label class="sr-only" for="courseId">所学课程</label>
-										<input type="text" name="courseId" placeholder="所学课程..." class="courseId form-control" id="courseId" />
+										<select class="form-control" id="courseId" name="courseId" placeholder="所学课程" required>
+										</select>
 									</div>
 									<div class="form-group">
 										<label class="sr-only" for="industry">当前行业</label>
@@ -135,7 +141,7 @@
 										<p>社交媒体、教育:</p>
 									</div>
 									<div class="form-top-right">
-										<i class="fa fa-twitter"></i>
+										<i class="fa fa-comment"></i>
 									</div>
 								</div>
 								<div class="form-bottom">
@@ -156,16 +162,14 @@
 										<input type="text" name="graduationSchool" placeholder="毕业学校..." class="graduationSchool form-control" id="graduationSchool" />
 									</div>
 									<div class="form-group">
-										<label class="sr-only" for="graduationSchool">毕业学校</label>
-										<input type="text" name="graduationSchool" placeholder="毕业学校..." class="graduationSchool form-control" id="graduationSchool" />
-									</div>
-									<div class="form-group">
 										<label class="sr-only" for="graduationTime">毕业时间</label>
-										<input type="text" name="graduationTime" placeholder="毕业学校..." class="graduationTime form-control" id="graduationTime" />
+										<input type="text" name="graduationTime" placeholder="毕业时间..." class="date graduationTime form-control" id="graduationTime" />
 									</div>
 									<div class="form-group">
-										<label class="sr-only" for="graduationTime">学历</label>
-										<input type="text" name="graduationTime" placeholder="学历..." class="graduationTime form-control" id="graduationTime" />
+										<label class="sr-only" for="educationId">学历</label>
+										<select class="form-control" id="educationId" name="educationId" placeholder="学历..." required>
+										</select>
+										<!-- <input type="text" name="educationId" placeholder="学历..." class="educationId form-control" id="educationId" required 	/> -->
 									</div>
 									<div class="form-group">
 										<label class="sr-only" for="schoolMajor">专业</label>
@@ -187,6 +191,9 @@
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 	<script src="assets/js/jquery.backstretch.min.js"></script>
 	<script src="assets/js/retina-1.1.0.min.js"></script>
+	<script src="assets/js/bootstrap-datepicker.min.js"></script>
+	<script src="assets/js/bootstrap-datepicker.zh-CN.min.js" charset="UTF-8"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
 	<script src="assets/js/scripts.js"></script>
 
 	<!--[if lt IE 10]>

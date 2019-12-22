@@ -1,6 +1,7 @@
 
 input[type="text"], 
 input[type="password"], 
+select.form-control,
 textarea, 
 textarea.form-control {
 	height: 50px;
