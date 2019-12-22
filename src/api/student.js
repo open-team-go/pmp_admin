@@ -55,3 +55,12 @@ export function payType(data) {
     data
   })
 }
+
+
+export function importUser(data) {
+  return request({
+    url: '/back/import/user',
+    method: 'post',
+    data
+  })
+}

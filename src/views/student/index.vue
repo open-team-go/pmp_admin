@@ -3,7 +3,7 @@
     <el-card class="filter-container" shadow="never">
       <div>
         <i class="el-icon-search"></i>
-        <span>筛选搜索</span>
+        <span>筛选搜索</span>        
         <el-button style="float: right" @click="serchList()" type="primary" size="small">查询结果</el-button>
       </div>
       <div style="margin-top: 15px">
@@ -132,6 +132,9 @@
       <i class="el-icon-tickets"></i>
       <span>数据列表</span>
       <el-button size="mini" class="btn-add" @click="handleAdd()" style="margin-left: 20px">新增</el-button>
+      <el-upload  class="btn-add" :action="importURL" :show-file-list="false" :on-success="handleImportSuccess" :before-upload="beforeUpload">
+        <el-button size="mini" type="primary">文件导入</el-button>
+      </el-upload>
     </el-card>
     <div class="table-container">
       <el-table ref="brandTable" :data="list" style="width: 100%" v-loading="listLoading" border>
@@ -208,6 +211,7 @@ export default {
   name: "userList",
   data() {
     return {
+      importURL: process.env.BASE_API + '/back/import/user',
       listQuery: {
         keyword: "",
         pageNum: 1,
@@ -248,6 +252,19 @@ export default {
     this.getList();
   },
   methods: {
+    handleImportSuccess(res){
+      if(res.header && res.header.code=='SUCCESS'){
+        var data = res.body
+        this.$notify({
+          title: `导入成功，新增${data.addCount}条, 失败${data.errorList ? data.errorList.length : 0 }条`,
+          message: `共更新${data.updateCount}条记录`,
+          duration: 0
+        });
+      }
+    },
+    beforeUpload(){
+
+    },
     GetSalesList(){
       if(!this.salesOptions.length){
         searchAdminApi({roleId:3}).then(res=>{

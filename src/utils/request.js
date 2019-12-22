@@ -24,13 +24,15 @@ service.interceptors.request.use(config => {
       delete config.data.pageNum
       delete config.data.pageSize
     }
+
+    var header = {
+      authentication: config.headers['authentication'] || null,
+      pageNum,
+      pageSize
+    }
     const qdata = {
       body: config.data || {},
-      header:{
-        authentication: config.headers['authentication'] || null,
-        pageNum,
-        pageSize
-      }
+      header: Object.assign({},header,config.data.header)
     }
     config.data = qdata
   }
