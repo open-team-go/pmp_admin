@@ -142,10 +142,10 @@
           <template slot-scope="scope">{{scope.row.userName}}</template>
         </el-table-column>
         <el-table-column label="班级名称" align="center">
-          <template slot-scope="scope">{{scope.row.roomInfo ? scope.row.roomInfo.roomName : '' }}</template>
+          <template slot-scope="scope">{{scope.row.roomName}}</template>
         </el-table-column>
         <el-table-column label="顾问名称" align="center">
-          <template slot-scope="scope">{{scope.row.adminInfo? scope.row.adminInfo.userName: ''}}</template>
+          <template slot-scope="scope">{{scope.row.salesAdminName}}</template>
         </el-table-column>
          <el-table-column label="学员类型" align="center" :formatter="FormatStudentType"></el-table-column>
         <el-table-column label="性别" align="center">

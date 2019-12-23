@@ -30,6 +30,9 @@ service.interceptors.request.use(config => {
       pageNum,
       pageSize
     }
+    console.log(config.data)
+    console.log(header)
+    config.data = config.data?config.data:{};
     const qdata = {
       body: config.data || {},
       header: Object.assign({},header,config.data.header)
