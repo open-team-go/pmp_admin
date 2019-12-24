@@ -157,17 +157,49 @@
       <el-form-item label="发票抬头：" prop="invoiceHeader">
         <el-input v-model="formData.invoiceHeader"></el-input>
       </el-form-item>
-
-      <el-form-item label="证书用户名：" prop="certUserName">
-        <el-input v-model="formData.certUserName"></el-input>
+      
+      <el-form-item label="付款金额：" prop="payTotal">
+        <el-input v-model="formData.payTotal"></el-input>
+      </el-form-item>
+         
+      <el-form-item label="付款时间：" prop="payTime">
+        <el-date-picker
+          v-model="formData.payTime"
+          type="date"
+          value-format="timestamp"
+          placeholder="选择日期"
+        >
+        </el-date-picker>
+      </el-form-item>
+               
+      <el-form-item label="考试时间：" prop="examinationTime">
+        <el-date-picker
+          v-model="formData.examinationTime"
+          type="date"
+          value-format="timestamp"
+          placeholder="选择日期"
+        >
+        </el-date-picker>
       </el-form-item>
 
-      <el-form-item label="证书编号：" prop="certNo">
+      <el-form-item label="PMI ID号：" prop="certNo">
         <el-input v-model="formData.certNo"></el-input>
       </el-form-item>
 
-      <el-form-item label="证书密码：" prop="certPassword">
-        <el-input v-model="formData.certPassword"></el-input>
+      <el-form-item label="英文网站用户名：" prop="certEnName">
+        <el-input v-model="formData.certEnName"></el-input>
+      </el-form-item>
+
+      <el-form-item label="英文网站密码：" prop="certEnPasw">
+        <el-input v-model="formData.certEnPasw"></el-input>
+      </el-form-item>
+      
+      <el-form-item label="中文网站用户名：" prop="certCnName">
+        <el-input v-model="formData.certCnName"></el-input>
+      </el-form-item>
+
+      <el-form-item label="英中文网站密码：" prop="certCnPasw">
+        <el-input v-model="formData.certCnPasw"></el-input>
       </el-form-item>
 
       <el-form-item label="毕业学校：" prop="graduationSchool">
@@ -287,8 +319,10 @@ const defaultFormData = {
   adminId: "",
   payId: "",
   certNo: "",
-  certPassword: "",
-  certUserName: "",
+  certEnName: "",
+  certEnPasw: "",
+  certCnName: "",
+  certCnPasw: "",
   comName: "",
   industry: "", //行业
   comDepartment: "",
@@ -301,6 +335,9 @@ const defaultFormData = {
   graduationTime: "",
   invoiceCode: "", // 发票code
   invoiceHeader: "", // 发票抬头
+  payTotal: "", // 支付金额
+  payTime: "", // 付款时间
+  examinationTime: "", // 考试时间
   remark: "",
   roomId: ""
 };
@@ -345,7 +382,7 @@ export default {
         const formData = this.formData
         for( var key in formData){
           if(detailInfo.hasOwnProperty(key)){
-            if((key=='birthday' || key=="graduationTime") && detailInfo[key]){
+            if((key=='birthday' || key=="graduationTime" || key=="payTime" || key=="examinationTime") && detailInfo[key]){
               formData[key]=detailInfo[key]*1000
             }else{
               formData[key]=detailInfo[key]
@@ -430,6 +467,8 @@ export default {
             let formData = Object.assign({},this.formData)
             if(formData.birthday) formData.birthday = Math.floor(formData.birthday/1000)
             if(formData.graduationTime) formData.graduationTime = Math.floor(formData.graduationTime/1000)
+            if(formData.payTime) formData.payTime = Math.floor(formData.payTime/1000)
+            if(formData.examinationTime) formData.examinationTime = Math.floor(formData.examinationTime/1000)
             if (this.isEdit) {
               studentService.update(formData).then(res=>{
               this.$message({

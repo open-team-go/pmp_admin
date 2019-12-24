@@ -47,6 +47,9 @@
         <el-table-column label="描述" align="center">
           <template slot-scope="scope">{{scope.row.courseDesc}}</template>
         </el-table-column>
+        <el-table-column label="排序" align="center">
+          <template slot-scope="scope">{{scope.row.sort}}</template>
+        </el-table-column>
         <el-table-column label="是否使用" align="center">
           <template slot-scope="scope">
             <el-switch
@@ -95,6 +98,9 @@
         </el-form-item>
         <el-form-item label="描述：">
          <el-input v-model="formData.courseDesc"  type="textarea" style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="排序：">
+          <el-input v-model="formData.sort" style="width: 250px"></el-input>
         </el-form-item>
         <el-form-item label="是否使用">
          <el-switch  v-model="formData.useOn"></el-switch>
