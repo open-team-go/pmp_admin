@@ -45,15 +45,15 @@
 								</div>
 								<div class="form-bottom">
 									<div class="form-group">
-										<label class="sr-only" for="userName">名称</label>
-										<input type="text" name="userName" placeholder="名称"
+										<label class="sr-only" for="userName">姓名</label>
+										<input type="text" name="userName" placeholder="姓名"
 											class="form-control" id="userName" required/>
 									</div>
 									<div class="form-group">
 										<label class="sr-only" for="gender">性别</label>
 										<select class="form-control" id="gender" required name="gender" placeholder="性别" >
-											<option value="1">男</option>
-											<option value="0">女</option>
+											<option value="true">男</option>
+											<option value="false">女</option>
 										</select>
 									</div>
 									<div class="form-group">
@@ -61,21 +61,13 @@
 										<input  type="text" name="birthday" placeholder="出生年月" class="birthday form-control date" id="birthday" required></input>
 									</div>
 									<div class="form-group">
-										<label class="sr-only" for="phoneNo">电话号码</label>
-										<input type="text" name="phoneNo" placeholder="电话号码" class="phoneNo form-control" id="phoneNo" required />
+										<label class="sr-only" for="phoneNo">联系电话</label>
+										<input type="text" name="phoneNo" placeholder="联系电话" class="phoneNo form-control" id="phoneNo" required />
 									</div>
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<label class="sr-only" for="fixedTelephone">固定电话</label>
 										<input type="text" name="fixedTelephone" placeholder="固定电话" class="fixedTelephone form-control" id="fixedTelephone" />
-									</div>
-									<div class="form-group">
-										<label class="sr-only" for="nationality">民族</label>
-										<input type="text" name="nationality" placeholder="民族" class="nationality form-control" id="nationality" />
-									</div>
-									<div class="form-group">
-										<label class="sr-only" for="identityNo">身份证</label>
-										<input type="text" name="identityNo" placeholder="身份证" class="identityNo form-control" id="identityNo" required />
-									</div>
+									</div> -->
 									<div class="form-group">
 										<label class="sr-only" for="email">邮箱</label>
 										<input type="text" name="email" placeholder="邮箱" class="email form-control" id="email" required />
@@ -85,8 +77,16 @@
 										<input type="text" name="backupEmail" placeholder="备用邮箱" class="backupEmail form-control" id="backupEmail" />
 									</div>
 									<div class="form-group">
-										<label class="sr-only" for="userAddress">地址</label>
-										<textarea name="userAddress" placeholder="地址" class="userAddress form-control" id="userAddress"></textarea>
+										<label class="sr-only" for="identityNo">身份证</label>
+										<input type="text" name="identityNo" placeholder="身份证" class="identityNo form-control" id="identityNo" required />
+									</div>
+									<div class="form-group">
+										<label class="sr-only" for="nationality">民族</label>
+										<input type="text" name="nationality" placeholder="民族" class="nationality form-control" id="nationality" required />
+									</div>
+									<div class="form-group">
+										<label class="sr-only" for="userAddress">居住地址</label>
+										<textarea name="userAddress" placeholder="居住地址" class="userAddress form-control" id="userAddress" required></textarea>
 									</div>
 									<button type="button" class="btn btn-next">下一步</button>
 								</div>
@@ -104,15 +104,23 @@
 								</div>
 								<div class="form-bottom">
 									<div class="form-group">
-										<label class="sr-only" for="adminId">课程顾问</label>
-										<select class="form-control" id="adminId" name="adminId" placeholder="课程顾问" required>
+										<label class="sr-only" for="educationId">学历</label>
+										<select class="form-control" id="educationId" name="educationId" placeholder="学历...">
 										</select>
 									</div>
 									<div class="form-group">
-										<label class="sr-only" for="courseId">所学课程</label>
-										<select class="form-control" id="courseId" name="courseId" placeholder="所学课程" required>
-										</select>
+										<label class="sr-only" for="schoolMajor">专业</label>
+										<input type="text" name="schoolMajor" placeholder="专业..." class="schoolMajor form-control" id="schoolMajor" />
 									</div>
+									<div class="form-group">
+										<label class="sr-only" for="graduationSchool">毕业学校</label>
+										<input type="text" name="graduationSchool" placeholder="毕业学校..." class="graduationSchool form-control" id="graduationSchool" />
+									</div>
+									<div class="form-group">
+										<label class="sr-only" for="graduationTime">毕业时间</label>
+										<input type="text" name="graduationTime" placeholder="毕业时间..." class="date graduationTime form-control" id="graduationTime" />
+									</div>
+									
 									<div class="form-group">
 										<label class="sr-only" for="industry">当前行业</label>
 										<input type="text" name="industry" placeholder="当前行业..." class="industry form-control" id="industry" />
@@ -127,7 +135,7 @@
 									</div>
 									<div class="form-group">
 										<label class="sr-only" for="comPosition">目前职位</label>
-										<input type="text" name="comPosition" placeholder="当前行业..." class="comPosition form-control" id="comPosition" />
+										<input type="text" name="comPosition" placeholder="目前职位..." class="comPosition form-control" id="comPosition" />
 									</div>
 									<button type="button" class="btn btn-previous">上一步 </button>
 									<button type="button" class="btn btn-next">下一步</button>
@@ -138,7 +146,7 @@
 								<div class="form-top">
 									<div class="form-top-left">
 										<h3>步骤 3 / 3</h3>
-										<p>社交媒体、教育:</p>
+										<p>进修课程:</p>
 									</div>
 									<div class="form-top-right">
 										<i class="fa fa-comment"></i>
@@ -146,6 +154,29 @@
 								</div>
 								<div class="form-bottom">
 									<div class="form-group">
+										<label class="sr-only" for="courseId">所学课程</label>
+										<select class="form-control" id="courseId" name="courseId" placeholder="所学课程" required>
+										</select>
+									</div>
+									<div class="form-group">
+										<label class="sr-only" for="adminId">课程顾问</label>
+										<select class="form-control" id="adminId" name="adminId" placeholder="课程顾问" required>
+											
+										</select>
+									</div>
+									<div class="form-group">
+										<label class="sr-only" for="payId">付款方式</label>
+										<select class="form-control" id="payId" name="payId" placeholder="付款方式">
+									</div>
+									<div class="form-group">
+										<label class="sr-only" for="invoiceHeader">发票抬头</label>
+										<input type="text" name="invoiceHeader" placeholder="发票抬头..." class="qq form-control" id="invoiceHeader" />
+									</div>
+									<div class="form-group">
+										<label class="sr-only" for="invoiceCode">发票税号</label>
+										<input type="text" name="invoiceCode" placeholder="发票税号..." class="qq form-control" id="invoiceCode" />
+									</div>
+									<!-- <div class="form-group">
 										<label class="sr-only" for="qq">QQ</label>
 										<input type="text" name="qq" placeholder="QQ..." class="qq form-control" id="qq" />
 									</div>
@@ -156,24 +187,8 @@
 									<div class="form-group">
 										<label class="sr-only" for="zipCode">邮编</label>
 										<input type="text" name="zipCode" placeholder="邮编..." class="zipCode form-control" id="zipCode" />
-									</div>
-									<div class="form-group">
-										<label class="sr-only" for="graduationSchool">毕业学校</label>
-										<input type="text" name="graduationSchool" placeholder="毕业学校..." class="graduationSchool form-control" id="graduationSchool" />
-									</div>
-									<div class="form-group">
-										<label class="sr-only" for="graduationTime">毕业时间</label>
-										<input type="text" name="graduationTime" placeholder="毕业时间..." class="date graduationTime form-control" id="graduationTime" />
-									</div>
-									<div class="form-group">
-										<label class="sr-only" for="educationId">学历</label>
-										<select class="form-control" id="educationId" name="educationId" placeholder="学历..." required>
-										</select>
-									</div>
-									<div class="form-group">
-										<label class="sr-only" for="schoolMajor">专业</label>
-										<input type="text" name="schoolMajor" placeholder="专业..." class="schoolMajor form-control" id="schoolMajor" />
-									</div>
+									</div> -->
+
 									<button type="button" class="btn btn-previous">上一步</button>
 									<button type="submit" class="btn">提交</button>
 								</div>

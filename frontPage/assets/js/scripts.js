@@ -118,6 +118,7 @@ jQuery(document).ready(function () {
 	getAdmin()
 	getcourse()
 	geteducation()
+	getPayType()
 
 	function initSerializeObject() {
 		$.fn.serializeObject = function () {
@@ -144,19 +145,20 @@ jQuery(document).ready(function () {
 			contentType: 'application/json',
 			data: JSON.stringify({
 				body: {
-					roleId: 4
+					roleId: 3
 				},
 				header: {}
 			}),
 			success: function (res) {
+				var html = "<option value=''>请选择课程顾问</option>";
 				if (res.header && res.header.code == "SUCCESS") {
 					if (res.body && res.body.length) {
-						var html = res.body.map(function (item) {
+						html += res.body.map(function (item) {
 							return '<option value="' + item.adminId + '">' + item.nickname + '</option>'
 						}).join('')
-						$('#adminId').html(html)
 					}
 				}
+				$('#adminId').html(html)
 			}
 		})
 	}
@@ -167,18 +169,45 @@ jQuery(document).ready(function () {
 			url: apiHost + '/back/course/all',
 			contentType: 'application/json',
 			data: JSON.stringify({
+				body: {"useOn":true},
+				header: {}
+			}),
+			success: function (res) {
+				var html = "<option value=''>请选择课程</option>";
+				if (res.header && res.header.code == "SUCCESS") {
+					if (res.body && res.body.length) {
+						html += res.body.map(function (item) {
+							return '<option value="' + item.courseId + '">' + item.courseName + '</option>'
+						}).join('')
+					}
+				}
+				console.log(html)
+				console.log($('#courseId'))
+				$('#courseId').html(html)
+			}
+		})
+	}
+	
+	function getPayType() {
+		$.ajax({
+			type: 'post',
+			url: apiHost + '/back/user/payType',
+			contentType: 'application/json',
+			data: JSON.stringify({
 				body: {},
 				header: {}
 			}),
 			success: function (res) {
+				var html = "<option value=''>请选择支付方式</option>";
 				if (res.header && res.header.code == "SUCCESS") {
 					if (res.body && res.body.length) {
-						var html = res.body.map(function (item) {
-							return '<option value="' + item.courseId + '">' + item.courseName + '</option>'
+						html += res.body.map(function (item) {
+							return '<option value="' + item.payId + '">' + item.payName + '</option>'
 						}).join('')
-						$('#courseId').html(html)
 					}
+					$('#payId').html(html);
 				}
+
 			}
 		})
 	}
@@ -193,14 +222,15 @@ jQuery(document).ready(function () {
 				header: {}
 			}),
 			success: function (res) {
+				var html = "<option value=''>请选择学历</option>";
 				if (res.header && res.header.code == "SUCCESS") {
 					if (res.body && res.body.length) {
-						var html = res.body.map(function (item) {
+						html += res.body.map(function (item) {
 							return '<option value="' + item.educationId + '">' + item.educationName + '</option>'
 						}).join('')
-						$('#educationId').html(html)
 					}
 				}
+				$('#educationId').html(html)
 			}
 		})
 	}
