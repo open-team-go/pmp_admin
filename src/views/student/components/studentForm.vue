@@ -283,7 +283,7 @@
                 <span class="title">课程顾问</span>
                 <span class="value">
                   <el-select
-                    v-model="formData.adminId"
+                    v-model="formData.salesAdminId"
                     @focus="GetSalesList"
                     filterable
                     clearable
@@ -500,7 +500,8 @@ const defaultFormData = {
   payTime: "", // 付款时间
   examinationTime: "", // 考试时间
   remark: "",
-  roomId: ""
+  roomId: "",
+  salesAdminId: ""
 };
 
 export default {
