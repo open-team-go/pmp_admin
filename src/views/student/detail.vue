@@ -1,37 +1,168 @@
-<template> 
+<template>
   <div class="detail-container">
-    <el-card shadow="never" style="margin-top: 15px">
-      <div class="operate-container">
-        <i class="el-icon-warning color-danger" style="margin-left: 20px"></i>
-        <span class="color-danger">当前学员类型：{{userInfo.userType | filterUserType}}</span>
-        <!-- <div class="operate-button-container">
-          <el-button size="mini" >修改收货人信息</el-button>
-        </div> -->
-      </div>
-      <div style="margin-top: 20px">
+    <el-card shadow="never">
+      <div>
         <svg-icon icon-class="marker" style="color: #606266"></svg-icon>
         <span class="font-small">基本信息</span>
       </div>
       <div class="table-layout">
         <el-row>
-          <el-col :span="8" class="table-cell-title">姓名</el-col>
-          <el-col :span="8" class="table-cell-title">性别</el-col>
-          <el-col :span="8" class="table-cell-title">出生年月</el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">姓名</span>
+              <span class="value">{{ userInfo.userName }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">性别</span>
+              <span class="value">{{ userInfo.gender ? "男" : "女" }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">联系电话</span>
+              <span class="value">{{ userInfo.phoneNo }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">邮箱</span>
+              <span class="value">{{ userInfo.email }}</span>
+            </div>
+          </el-col>
         </el-row>
         <el-row>
-          <el-col :span="8" class="table-cell">{{userInfo.userName}}</el-col>
-          <el-col :span="8" class="table-cell">{{userInfo.gender?'男':'女'}}</el-col>
-          <el-col :span="8" class="table-cell">{{userInfo.birthday | filterBirthTime}}</el-col>        
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">QQ</span>
+              <span class="value">{{ userInfo.qq }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">微信</span>
+              <span class="value">{{ userInfo.wechatNo }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">身份证</span>
+              <span class="value">{{ userInfo.identityNo }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">辅助邮箱</span>
+              <span class="value">{{ userInfo.backupEmail }}</span>
+            </div>
+          </el-col>
         </el-row>
         <el-row>
-          <el-col :span="8" class="table-cell-title">身份证</el-col>
-          <el-col :span="8" class="table-cell-title">学历</el-col>
-          <el-col :span="8" class="table-cell-title">生日</el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">学历</span>
+              <span class="value">{{ userInfo.educationName }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">毕业学校</span>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="userInfo.graduationSchool"
+                placement="top-start"
+              >
+                <span class="value">{{ userInfo.graduationSchool }}</span>
+              </el-tooltip>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">专业</span>
+              <span class="value">{{ userInfo.schoolMajor }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">毕业时间</span>
+              <span class="value">
+                {{
+                userInfo.graduationTime | filterBirthTime
+                }}
+              </span>
+            </div>
+          </el-col>
         </el-row>
-         <el-row>
-          <el-col :span="8" class="table-cell">{{userInfo.identityNo}}</el-col>
-          <el-col :span="8" class="table-cell">{{userInfo.educationName}}</el-col>
-          <el-col :span="8" class="table-cell">{{userInfo.birthday | filterBirthday}}</el-col>
+        <el-row>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">公司名称</span>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="userInfo.comName"
+                placement="top-start"
+              >
+                <span class="value">{{ userInfo.comName }}</span>
+              </el-tooltip>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">行业</span>
+              <span class="value">{{ userInfo.industry }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">职位</span>
+              <span class="value">{{ userInfo.comDepartment }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">部门</span>
+              <span class="value">{{ userInfo.comPosition }}</span>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">出生年月</span>
+              <span class="value">
+                {{
+                userInfo.birthday | filterBirthTime
+                }}
+              </span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">民族</span>
+              <span class="value">{{ userInfo.nationality }}</span>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="flex">
+              <span class="title">结业状态</span>
+              <span class="value">
+                {{
+                userInfo.graduationStatus | filterEduStatus
+                }}
+              </span>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="24">
+            <div class="flex">
+              <span class="title">通讯地址</span>
+              <span class="value">{{ userInfo.userAddress }}</span>
+            </div>
+          </el-col>
         </el-row>
       </div>
       <div style="margin-top: 20px">
@@ -40,198 +171,234 @@
       </div>
       <div class="table-layout">
         <el-row>
-          <el-col :span="8" class="table-cell-title">报名课程</el-col>
-          <el-col :span="8" class="table-cell-title">支付方式</el-col>
-          <el-col :span="8" class="table-cell-title">创建时间</el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">学员类型</span>
+              <span class="value">
+                {{
+                userInfo.userType | filterUserType
+                }}
+              </span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">课程名称</span>
+              <span class="value">{{ userInfo.courseName }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">班级</span>
+              <span class="value">{{ userInfo.roomName }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">课程顾问</span>
+              <span class="value">{{ userInfo.salesAdminName }}</span>
+            </div>
+          </el-col>
         </el-row>
         <el-row>
-          <el-col :span="8" class="table-cell">{{userInfo.courseName}}</el-col>
-          <el-col :span="8" class="table-cell">{{userInfo.payName}}</el-col>
-          <el-col :span="8" class="table-cell">{{userInfo.createTime | filterTime}}</el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">支付方式</span>
+              <span class="value">{{ userInfo.payName }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">支付金额</span>
+              <span class="value">{{ userInfo.payTotal }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">支付日期</span>
+              <span class="value">
+                {{
+                userInfo.payTime | filterBirthTime
+                }}
+              </span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">备注</span>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="userInfo.remark"
+                placement="top-start"
+              >
+                <span class="value">{{ userInfo.remark }}</span>
+              </el-tooltip>
+            </div>
+          </el-col>
         </el-row>
         <el-row>
-          <el-col :span="24" class="table-cell-title">备注</el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">考试时间</span>
+              <span class="value">
+                {{
+                userInfo.examinationTime | filterBirthTime
+                }}
+              </span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">发票抬头</span>
+              <span class="value">{{ userInfo.invoiceHeader }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">发票税号</span>
+              <span class="value">{{ userInfo.invoiceCode }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">PMI ID</span>
+              <span class="value">{{ userInfo.certNo }}</span>
+            </div>
+          </el-col>
         </el-row>
         <el-row>
-          <el-col :span="24" class="table-cell">{{userInfo.remark}}</el-col>
-        </el-row>
-      </div>
-      <div style="margin-top: 20px">
-        <svg-icon icon-class="marker" style="color: #606266"></svg-icon>
-        <span class="font-small">联系方式</span>
-      </div>
-      <div class="table-layout">
-        <el-row>
-          <el-col :span="8" class="table-cell-title">邮箱</el-col>
-          <el-col :span="8" class="table-cell-title">微信号</el-col>
-          <el-col :span="8" class="table-cell-title">QQ</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8" class="table-cell">{{userInfo.email}}</el-col>
-          <el-col :span="8" class="table-cell">{{userInfo.wechatNo}}</el-col>
-          <el-col :span="8" class="table-cell">{{userInfo.qq}}</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8" class="table-cell-title">辅助邮箱</el-col>
-          <el-col :span="8" class="table-cell-title">电话</el-col>
-          <el-col :span="8" class="table-cell-title">邮编</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8" class="table-cell">{{userInfo.backupEmail}}</el-col>
-          <el-col :span="8" class="table-cell">{{userInfo.phoneNo}}</el-col>
-          <el-col :span="8" class="table-cell">{{userInfo.zipCode}}</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24" class="table-cell-title">地址</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24" class="table-cell">{{userInfo.userAddress}}</el-col>
-        </el-row>
-      </div>
-      <div style="margin-top: 20px">
-        <svg-icon icon-class="marker" style="color: #606266"></svg-icon>
-        <span class="font-small">学校信息</span>
-      </div>
-      <div class="table-layout">
-        <el-row>
-          <el-col :span="6" class="table-cell-title">毕业学校</el-col>
-          <el-col :span="6" class="table-cell-title">专业</el-col>
-          <el-col :span="6" class="table-cell-title">毕业状态</el-col>
-          <el-col :span="6" class="table-cell-title">毕业时间</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="6" class="table-cell">{{userInfo.graduationSchool}}</el-col>
-          <el-col :span="6" class="table-cell">{{userInfo.schoolMajor}}</el-col>
-          <el-col :span="6" class="table-cell">{{userInfo.graduationStatus | filterEduStatus}}</el-col>
-          <el-col :span="6" class="table-cell">{{userInfo.graduationTime | filterBirthTime}}</el-col>
-        </el-row>
-      </div>
-      <div style="margin-top: 20px">
-        <svg-icon icon-class="marker" style="color: #606266"></svg-icon>
-        <span class="font-small">公司信息</span>
-      </div>
-      <div class="table-layout">
-        <el-row>
-          <el-col :span="24" class="table-cell-title">公司名称</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24" class="table-cell">{{userInfo.comName}}</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="6" class="table-cell-title">行业</el-col>
-          <el-col :span="6" class="table-cell-title">专业</el-col>
-          <el-col :span="6" class="table-cell-title">部门</el-col>
-          <el-col :span="6" class="table-cell-title">职位</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="6" class="table-cell">{{userInfo.industry}}</el-col>
-          <el-col :span="6" class="table-cell">{{userInfo.educationName}}</el-col>
-          <el-col :span="6" class="table-cell">{{userInfo.comDepartment}}</el-col>
-          <el-col :span="6" class="table-cell">{{userInfo.comPosition}}</el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">英文网站用户名</span>
+              <span class="value">{{ userInfo.certEnName }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">英文网站密码</span>
+              <span class="value">{{ userInfo.certCnPasw }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">中文网站用户名</span>
+              <span class="value">{{ userInfo.certCnName }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">中文网站密码</span>
+              <span class="value">{{ userInfo.certCnPasw }}</span>
+            </div>
+          </el-col>
         </el-row>
       </div>
     </el-card>
-      
   </div>
 </template>
 <script>
-  import { detail as FetchDetailApi } from '../../api/student'
-  import dayjs from "dayjs";
+import { detail as FetchDetailApi } from "../../api/student";
+import dayjs from "dayjs";
 
-  export default {
-    name: 'orderDetail',
-    components: {},
-    data() {
-      return {
-        id: null,
-        userInfo:{}
+export default {
+  name: "orderDetail",
+  components: {},
+  data() {
+    return {
+      id: null,
+      userInfo: {}
+    };
+  },
+  filters: {
+    filterUserType(type) {
+      switch (type) {
+        case 1:
+          return "内部学员";
+        case 2:
+          return "外部续证学员";
+        case 3:
+          return "联系中未报名";
+        default:
+          return "未知";
       }
     },
-    filters:{
-      filterUserType(type){
-        switch (type){
-          case 1: return '内部学员'
-          case 2: return '外部续证学员'
-          case 3: return '联系中未报名'
-          default: return '未知'
-        }
-      },
-      filterTime(time){
-       return dayjs(time * 1000).format("YYYY-MM-DD HH:mm:ss");
-      },
-      filterBirthday(time){
-       return dayjs(time * 1000).format("MM月DD号");
-      },
-      filterBirthTime(time){
-       return dayjs(time * 1000).format("YYYY年MM月DD号");
-      },
-      filterEduStatus(status){
-         switch (status){
-          case 0: return '未知'
-          case 1: return '通过'
-          case 2: return '未通过'
-          case 3: return '缓考'
-          case 4: return '缓读'
-          default: return '未知'
-        }
+    filterTime(time) {
+      return dayjs(time * 1000).format("YYYY-MM-DD HH:mm:ss");
+    },
+    filterBirthday(time) {
+      return dayjs(time * 1000).format("MM月DD号");
+    },
+    filterBirthTime(time) {
+      return dayjs(time * 1000).format("YYYY年MM月DD号");
+    },
+    filterEduStatus(status) {
+      switch (status) {
+        case 0:
+          return "未知";
+        case 1:
+          return "通过";
+        case 2:
+          return "未通过";
+        case 3:
+          return "缓考";
+        case 4:
+          return "缓读";
+        default:
+          return "未知";
       }
-    },
-    created() {
-      this.id = this.$route.query.id;
-      FetchDetailApi(this.id).then(res => {
-        this.userInfo = res.data
-      });
-    },
-    methods: {
     }
-  }
+  },
+  created() {
+    this.id = this.$route.query.id;
+    FetchDetailApi(this.id).then(res => {
+      this.userInfo = res.data;
+    });
+  },
+  methods: {}
+};
 </script>
-<style scoped>
-  .detail-container {
-    width: 100%;
-    padding: 20px 20px 20px 20px;
-    margin: 20px auto;
-  }
+<style scoped lang="scss">
+.detail-container {
+  width: 100%;
+  padding: 20px 20px 20px 20px;
+  margin: 20px auto;
+}
 
-  .operate-container {
-    background: #F2F6FC;
-    height: 80px;
-    margin: -20px -20px 0;
-    line-height: 80px;
-  }
+.table-layout {
+  margin-top: 20px;
+  border-left: 1px solid #dcdfe6;
+  border-top: 1px solid #dcdfe6;
+}
 
-  .operate-button-container {
-    float: right;
-    margin-right: 20px
-  }
-
-  .table-layout {
-    margin-top: 20px;
-    border-left: 1px solid #DCDFE6;
-    border-top: 1px solid #DCDFE6;
-  }
-
-  .table-cell {
-    height: 60px;
-    line-height: 40px;
-    border-right: 1px solid #DCDFE6;
-    border-bottom: 1px solid #DCDFE6;
-    padding: 10px;
-    font-size: 14px;
-    color: #606266;
-    text-align: center;
-    overflow: hidden;
-  }
-
-  .table-cell-title {
-    border-right: 1px solid #DCDFE6;
-    border-bottom: 1px solid #DCDFE6;
-    padding: 10px;
-    background: #F2F6FC;
-    text-align: center;
-    font-size: 14px;
-    color: #303133;
-  }
+.flex {
+  display: flex;
+}
+.title {
+  display: inline-block;
+  flex: 0 0 auto;
+  border-right: 1px solid #dcdfe6;
+  border-bottom: 1px solid #dcdfe6;
+  height: 36px;
+  width: 110px;
+  line-height: 36px;
+  background: #f2f6fc;
+  text-align: left;
+  font-size: 14px;
+  text-indent: 5px;
+  color: #303133;
+}
+.value {
+  display: inline-block;
+  flex-grow: 1;
+  height: 36px;
+  line-height: 36px;
+  border-right: 1px solid #dcdfe6;
+  border-bottom: 1px solid #dcdfe6;
+  font-size: 14px;
+  color: #606266;
+  text-align: left;
+  text-indent: 5px;
+  overflow: hidden;
+}
 </style>
-
-
