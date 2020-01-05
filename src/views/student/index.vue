@@ -12,16 +12,26 @@
             <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="名称"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input style="width: 203px" v-model="listQuery.email" placeholder="邮箱"></el-input>
+            <el-input style="width: 203px" v-model="listQuery.comName" placeholder="公司名称"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-input style="width: 203px" v-model="listQuery.comPosition" placeholder="公司职位名称"></el-input>
           </el-form-item>
            <el-form-item>
-            <el-input style="width: 203px" v-model="listQuery.identityNo" placeholder="身份证"></el-input>
+            <el-input style="width: 203px" v-model="listQuery.certNo" placeholder="PMI ID号"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input style="width: 203px" v-model="listQuery.qq" placeholder="QQ号"></el-input>
+            <el-input style="width: 203px" v-model="listQuery.payTotal" type="number" placeholder="成交金额"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input style="width: 203px" v-model="listQuery.wechatNo" placeholder="微信号"></el-input>
+              <el-select v-model="listQuery.invoiceOn" clearable placeholder="是否含票">
+              <el-option
+                v-for="item in useOnOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
           </el-form-item>
           <el-form-item>
             <el-select v-model="listQuery.courseId" @focus="getCourseList" filterable clearable  placeholder="课程名称">
@@ -34,52 +44,22 @@
             </el-select>
           </el-form-item>
           <el-form-item>
+            <el-select v-model="listQuery.roomId" @focus="getRoomList" filterable clearable  placeholder="班级名称">
+              <el-option
+                v-for="item in roomList"
+                :key="item.roomId"
+                :label="item.roomName"
+                :value="item.roomId"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
             <el-select v-model="listQuery.educationAdminId" @focus="GetEduersList" filterable clearable placeholder="教务员">
               <el-option
                 v-for="item in eduerOptions"
                 :key="item.adminId"
                 :label="item.nickname"
                 :value="item.adminId"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-select v-model="listQuery.educationId" @focus="getEducationList" clearable placeholder="学历">
-              <el-option
-                v-for="item in educationList"
-                :key="item.educationId"
-                :label="item.educationName"
-                :value="item.educationId"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-select v-model="listQuery.gender" clearable placeholder="性别">
-              <el-option
-                v-for="item in gendeOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-           <el-form-item>
-            <el-select v-model="listQuery.graduationStatus" clearable placeholder="结业状态">
-              <el-option
-                v-for="item in graduationStatusOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-select v-model="listQuery.placeId" @focus="getPlaceList" filterable  clearable placeholder="教学点">
-              <el-option
-                v-for="item in placeOptions"
-                :key="item.placeId"
-                :label="item.placeName"
-                :value="item.placeId"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -94,16 +74,6 @@
             </el-select>
           </el-form-item>
            <el-form-item>
-            <el-select v-model="listQuery.typeId" @focus="getPayTypeList" clearable placeholder="支付类型">
-              <el-option
-                v-for="item in payTypeOptions"
-                :key="item.payId"
-                :label="item.payName"
-                :value="item.payId"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-           <el-form-item>
             <el-select v-model="listQuery.userType" clearable placeholder="学员类型">
               <el-option
                 v-for="item in userTypeOptions"
@@ -113,7 +83,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
-           <el-form-item>
+           <!-- <el-form-item>
              <el-date-picker
                 v-model="datePicker"
                 @change="changeDatePicker"
@@ -123,7 +93,7 @@
                 start-placeholder="开始日期"
                 end-placeholder="结束日期">
               </el-date-picker>
-          </el-form-item>
+          </el-form-item> -->
          
         </el-form>
       </div>
@@ -184,11 +154,18 @@ const studentService = require("@/api/student");
 import {fetchAllList as fetchCourseList } from '@/api/course'
 import {fetchAllList as fetchPlaceList } from '@/api/place'
 import {search as searchAdminApi } from '@/api/admin'
+import {fetchAllList as searchRoomApi } from '@/api/room'
 import dayjs from "dayjs";
 
 const defaultGende = [
   {label:'女',value:0},
   {label:'男',value:1},
+]
+
+
+const useOnOptions= [
+  {label:'是',value:true},
+  {label:'否',value:false}
 ]
 
 // 毕业状态
@@ -218,20 +195,17 @@ export default {
         pageSize: 10,
         courseId: "",
         educationAdminId: "",
-        educationId: "",
-        email: "",
         endTime: "",
-        gender: "",
-        graduationStatus: "",
-        identityNo: "",
         placeId: "",
-        qq: "",
         roomId: "",
         salesAdminId: "",
         startTime: "",
-        typeId: "",
         userType: "",
-        wechatNo: ""
+        invoiceOn: "",
+        certNo: "",
+        comPosition: "",
+        comName: "",
+        payTotal: "",
       },
       list: null,
       total: null,
@@ -239,13 +213,15 @@ export default {
       courseList:[],
       educationList:[],//学历
       gendeOptions:defaultGende,
+      useOnOptions,
       graduationStatusOptions:defalutGraduationStatus,
       userTypeOptions:defaultUserType,
       payTypeOptions:[],
       placeOptions:[],
       datePicker:[],
       salesOptions:[],
-      eduerOptions:[]
+      eduerOptions:[],
+      roomList:[]
     };
   },
   created() {
@@ -310,6 +286,15 @@ export default {
         })
       }
       
+    },
+    getRoomList(){
+      if(!this.roomList.length){
+        searchRoomApi({useOn:true}).then(res=>{
+          this.roomList = res.data
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
     },
     // 获取学历
     getEducationList(){
