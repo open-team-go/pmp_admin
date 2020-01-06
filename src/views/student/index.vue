@@ -381,16 +381,19 @@ export default {
       this.$router.push({path:'/student/add'})
     },
 
-    formatKeyValue(data){
-      let result = '';
-      data.forEach(function(index,value){
-        result += value['name']+"="+value['value']+"&";
-      })
+    formatKeyValue(json){
+      let result = '?';
+      for(let item in json){
+        if(item){
+          result+=item+'='+json[item]+'&';
+        }
+      }
+      return result;
     },
     handleDownload(){
       let params = this.formatKeyValue(this.listQuery);
       console.log(params);
-      // window.location.href = 
+      window.location.href = path+params
     },
     handleDelete(index, row) {
       this.$confirm("是否删除", "提示", {
