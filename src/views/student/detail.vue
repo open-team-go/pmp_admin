@@ -32,6 +32,39 @@
             </div>
           </el-col>
         </el-row>
+
+        <el-row>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">来源</span>
+              <span class="value">{{ userInfo.resourceName }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">推荐人</span>
+              <span class="value">{{ userInfo.recommendName }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">咨询城市</span>
+              <span class="value">{{ userInfo.consultationCity }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">咨询日期</span>
+              <span class="value">
+                {{
+                userInfo.consultationTime | filterBirthTime
+                }}
+              </span>
+            </div>
+          </el-col>
+        </el-row>
+
+
         <el-row>
           <el-col :span="6">
             <div class="flex">
@@ -203,6 +236,12 @@
         <el-row>
           <el-col :span="6">
             <div class="flex">
+              <span class="title">课程教务</span>
+              <span class="value">{{ userInfo.educationAdminName }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
               <span class="title">支付方式</span>
               <span class="value">{{ userInfo.payName }}</span>
             </div>
@@ -223,29 +262,13 @@
               </span>
             </div>
           </el-col>
-          <el-col :span="6">
-            <div class="flex">
-              <span class="title">备注</span>
-              <el-tooltip
-                class="item"
-                effect="dark"
-                :content="userInfo.remark"
-                placement="top-start"
-              >
-                <span class="value">{{ userInfo.remark }}</span>
-              </el-tooltip>
-            </div>
-          </el-col>
+          
         </el-row>
         <el-row>
           <el-col :span="6">
             <div class="flex">
-              <span class="title">考试时间</span>
-              <span class="value">
-                {{
-                userInfo.examinationTime | filterBirthTime
-                }}
-              </span>
+              <span class="title">发票抬头</span>
+              <span class="value">{{ userInfo.invoiceOn?"含票":"未含票" }}</span>
             </div>
           </el-col>
           <el-col :span="6">
@@ -293,6 +316,31 @@
             </div>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">考试时间</span>
+              <span class="value">
+                {{
+                userInfo.examinationTime | filterBirthTime
+                }}
+              </span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">备注</span>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="userInfo.remark"
+                placement="top-start"
+              >
+                <span class="value">{{ userInfo.remark }}</span>
+              </el-tooltip>
+            </div>
+          </el-col>
+        </el-row>
       </div>
     </el-card>
   </div>
@@ -324,12 +372,15 @@ export default {
       }
     },
     filterTime(time) {
+      if(!time){return null}
       return dayjs(time * 1000).format("YYYY-MM-DD HH:mm:ss");
     },
     filterBirthday(time) {
+      if(!time){return null}
       return dayjs(time * 1000).format("MM月DD号");
     },
     filterBirthTime(time) {
+      if(!time){return null}
       return dayjs(time * 1000).format("YYYY年MM月DD号");
     },
     filterEduStatus(status) {
