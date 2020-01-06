@@ -100,15 +100,18 @@
     </el-card>
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
-      <span>数据列表</span>
+      <span>学员信息表</span>
       <el-button size="mini" class="btn-add" @click="handleAdd()" style="margin-left: 20px">新增</el-button>
       <el-upload  class="btn-add" :action="importURL" :show-file-list="false" :on-success="handleImportSuccess" :before-upload="beforeUpload">
         <el-button size="mini" type="primary">文件导入</el-button>
       </el-upload>
+
+      <el-button class="btn-add" @click="handleDownload()" size="mini" type="primary" style="background-color: #409999">文件导出</el-button>
+
     </el-card>
     <div class="table-container">
       <el-table ref="brandTable" :data="list" style="width: 100%" v-loading="listLoading" border>
-        <el-table-column label="姓名" align="center">
+        <!-- <el-table-column label="姓名" align="center">
           <template slot-scope="scope">{{scope.row.userName}}</template>
         </el-table-column>
         <el-table-column label="班级名称" align="center">
@@ -124,7 +127,42 @@
         <el-table-column label="联系电话" align="center">
           <template slot-scope="scope">{{scope.row.phoneNo}}</template>
         </el-table-column>       
-        <el-table-column label="创建时间" align="center" :formatter="FormatDate"></el-table-column>
+        <el-table-column label="创建时间" align="center" :formatter="FormatDate"></el-table-column> -->
+
+        <el-table-column label="姓名" align="center">
+          <template slot-scope="scope">{{scope.row.userName}}</template>
+        </el-table-column>
+        <el-table-column label="班级名称" align="center">
+          <template slot-scope="scope">{{scope.row.roomName}}</template>
+        </el-table-column>
+        <el-table-column label="课程名称" align="center">
+          <template slot-scope="scope">{{scope.row.courseName}}</template>
+        </el-table-column>
+         <el-table-column label="学员类型" align="center" :formatter="FormatStudentType"></el-table-column>
+        <el-table-column label="性别" align="center">
+          <template slot-scope="scope">{{scope.row.gender==0 ? '女':'男'}}</template>
+        </el-table-column>
+        <el-table-column label="联系电话" align="center">
+          <template slot-scope="scope">{{scope.row.phoneNo}}</template>
+        </el-table-column>
+        <el-table-column label="成交金额" align="center">
+          <template slot-scope="scope">{{scope.row.payTotal}}</template>
+        </el-table-column>
+        <el-table-column label="咨询日期" align="center"  :formatter="FormatConsultationTime">
+        </el-table-column>
+        <el-table-column label="咨询城市" align="center">
+          <template slot-scope="scope">{{scope.row.consultationCity}}</template>
+        </el-table-column>
+        <el-table-column label="来源" align="center">
+          <template slot-scope="scope">{{scope.row.resourceName}}</template>
+        </el-table-column>
+        <el-table-column label="公司名称" align="center">
+          <template slot-scope="scope">{{scope.row.comName}}</template>
+        </el-table-column>
+        <el-table-column label="邮箱" align="center">
+          <template slot-scope="scope">{{scope.row.email}}</template>
+        </el-table-column>
+
         <el-table-column label="操作" width="230" align="center">
           <template slot-scope="scope">
             <el-button size="mini" @click="handleViewDetail(scope.$index, scope.row)">查看</el-button>
@@ -342,6 +380,18 @@ export default {
     handleAdd(index, row) {
       this.$router.push({path:'/student/add'})
     },
+
+    formatKeyValue(data){
+      let result = '';
+      data.forEach(function(index,value){
+        result += value['name']+"="+value['value']+"&";
+      })
+    },
+    handleDownload(){
+      let params = this.formatKeyValue(this.listQuery);
+      console.log(params);
+      // window.location.href = 
+    },
     handleDelete(index, row) {
       this.$confirm("是否删除", "提示", {
         confirmButtonText: "确定",
@@ -375,8 +425,17 @@ export default {
       this.listQuery.pageNum = 1;
       this.getList();
     },
-    FormatDate(row){
-      return dayjs(row.createTime * 1000).format("YYYY-MM-DD HH:mm:ss");
+    FormatDate(cow){
+      if(!cow.createTime){
+        return null;
+      }
+      return dayjs(cow.createTime * 1000).format("YYYY-MM-DD HH:mm:ss");
+    },
+    FormatConsultationTime(cow){
+      if(!cow.consultationTime){
+        return null;
+      }
+      return dayjs(cow.consultationTime * 1000).format("YYYY-MM-DD HH:mm:ss");
     },
     FormatStudentType(row){
       const type = row.userType || 0

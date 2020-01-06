@@ -56,6 +56,13 @@ export function payType(data) {
   })
 }
 
+export function resourceType(data) {
+  return request({
+    url: '/back/user/resourceType',
+    method: 'post',
+    data
+  })
+}
 
 export function importUser(data) {
   return request({

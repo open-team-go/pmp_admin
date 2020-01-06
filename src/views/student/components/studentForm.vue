@@ -48,6 +48,7 @@
               </div>
             </el-col>
           </el-row>
+
           <el-row>
             <el-col :span="6">
               <div class="flex">
@@ -300,7 +301,59 @@
               </div>
             </el-col>
           </el-row>
+
           <el-row>
+            <el-col :span="6">
+              <div class="flex">
+                <span class="title">来源</span>
+                <span class="value">
+                  <el-select
+                    v-model="formData.resourceId"
+                    @focus="getResourceTypeList"
+                    clearable
+                    placeholder="来源"
+                  >
+                    <el-option
+                      v-for="item in resourceTypeOptions"
+                      :key="item.resourceId"
+                      :label="item.resourceName"
+                      :value="item.resourceId"
+                    ></el-option>
+                  </el-select>
+                </span>
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div class="flex">
+                <span class="title">推荐人</span>
+                <el-input v-model="formData.recommendName" class="value" placeholder="请输入内容"></el-input>
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div class="flex">
+                <span class="title">咨询城市</span>
+                <el-input v-model="formData.consultationCity" class="value" placeholder="请输入内容"></el-input>
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div class="flex">
+                <span class="title">咨询日期</span>
+                <span class="value">
+                  <el-date-picker v-model="formData.consultationTime" type="datetime" placeholder="选择日期"></el-date-picker>
+                </span>
+              </div>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <!-- <el-col :span="6">
+              <div class="flex">
+                <span class="title">课程教务</span>
+                <span class="value">
+                  <el-input v-model="formData.educationAdminName" class="value" placeholder="请输入内容"></el-input>
+                </span>
+              </div>
+            </el-col> -->
             <el-col :span="6">
               <div class="flex">
                 <span class="title">支付方式</span>
@@ -335,7 +388,7 @@
                 <span class="value">
                   <el-date-picker
                     v-model="formData.payTime"
-                    type="date"
+                    type="datetime"
                     value-format="timestamp"
                     placeholder="选择日期"
                   ></el-date-picker>>
@@ -344,9 +397,14 @@
             </el-col>
             <el-col :span="6">
               <div class="flex">
-                <span class="title">备注</span>
+                <span class="title">考试时间</span>
                 <span class="value">
-                  <el-input v-model="formData.remark" class="value" placeholder="请输入内容"></el-input>
+                  <el-date-picker
+                    v-model="formData.examinationTime"
+                    type="datetime"
+                    value-format="timestamp"
+                    placeholder="选择日期"
+                  ></el-date-picker>
                 </span>
               </div>
             </el-col>
@@ -354,14 +412,9 @@
           <el-row>
             <el-col :span="6">
               <div class="flex">
-                <span class="title">考试时间</span>
+                <span class="title">是否含票</span>
                 <span class="value">
-                  <el-date-picker
-                    v-model="formData.examinationTime"
-                    type="date"
-                    value-format="timestamp"
-                    placeholder="选择日期"
-                  ></el-date-picker>
+                  <el-switch  v-model="formData.invoiceOn"></el-switch>
                 </span>
               </div>
             </el-col>
@@ -404,7 +457,7 @@
                 <span class="title">英文网站密码</span>
                 <span class="value">
                   <el-input
-                    v-model="formData.certCnPasw"
+                    v-model="formData.certEnPasw"
                     class="value"
                     show-password
                     placeholder="请输入内容"
@@ -434,6 +487,19 @@
               </div>
             </el-col>
           </el-row>
+
+          <el-row>
+            
+            <el-col :span="6">
+              <div class="flex">
+                <span class="title">备注</span>
+                <span class="value">
+                  <el-input v-model="formData.remark" class="value" placeholder="请输入内容"></el-input>
+                </span>
+              </div>
+            </el-col>
+          </el-row>
+
         </div>
       </el-form>
     </el-card>
@@ -501,7 +567,14 @@ const defaultFormData = {
   examinationTime: "", // 考试时间
   remark: "",
   roomId: "",
-  adminId: ""
+  adminId: "",
+  // educationAdminName:"",
+  resourceId:"",
+  resourceName:"",
+  recommendName:"",
+  consultationTime:"",
+  consultationCity:"",
+  invoiceOn:"",
 };
 
 export default {
@@ -529,6 +602,7 @@ export default {
       educationList: [], //学历
       graduationStatusOptions: defalutGraduationStatus,
       userTypeOptions: defaultUserType,
+      resourceTypeOptions:[],
       rules: {
         identityNo: [{ validator: checkIdentityNo, trigger: "blur" }]
       }
@@ -546,7 +620,8 @@ export default {
               (key == "birthday" ||
                 key == "graduationTime" ||
                 key == "payTime" ||
-                key == "examinationTime") &&
+                key == "examinationTime" ||
+                key == "consultationTime") &&
               detailInfo[key]
             ) {
               formData[key] = detailInfo[key] * 1000;
@@ -562,6 +637,7 @@ export default {
     this.getCourseList();
     this.getRoomList();
     this.getPayTypeList();
+    this.getResourceTypeList();
   },
   methods: {
     // 获取学历
@@ -622,6 +698,18 @@ export default {
           });
       }
     },
+    getResourceTypeList() {
+      if (!this.resourceTypeOptions.length) {
+        studentService
+          .resourceType()
+          .then(res => {
+            this.resourceTypeOptions = res.data;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    },
     validIdentityNo() {
       var value = this.formData.identityNo;
       var reg = /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
@@ -659,6 +747,10 @@ export default {
           if (formData.examinationTime)
             formData.examinationTime = Math.floor(
               formData.examinationTime / 1000
+            );
+          if (formData.consultationTime)
+            formData.consultationTime = Math.floor(
+              formData.consultationTime / 1000
             );
           if (this.isEdit) {
             studentService

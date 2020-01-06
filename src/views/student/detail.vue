@@ -36,38 +36,6 @@
         <el-row>
           <el-col :span="6">
             <div class="flex">
-              <span class="title">来源</span>
-              <span class="value">{{ userInfo.resourceName }}</span>
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div class="flex">
-              <span class="title">推荐人</span>
-              <span class="value">{{ userInfo.recommendName }}</span>
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div class="flex">
-              <span class="title">咨询城市</span>
-              <span class="value">{{ userInfo.consultationCity }}</span>
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div class="flex">
-              <span class="title">咨询日期</span>
-              <span class="value">
-                {{
-                userInfo.consultationTime | filterBirthTime
-                }}
-              </span>
-            </div>
-          </el-col>
-        </el-row>
-
-
-        <el-row>
-          <el-col :span="6">
-            <div class="flex">
               <span class="title">QQ</span>
               <span class="value">{{ userInfo.qq }}</span>
             </div>
@@ -233,6 +201,39 @@
             </div>
           </el-col>
         </el-row>
+
+        
+        <el-row>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">来源</span>
+              <span class="value">{{ userInfo.resourceName }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">推荐人</span>
+              <span class="value">{{ userInfo.recommendName }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">咨询城市</span>
+              <span class="value">{{ userInfo.consultationCity }}</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">咨询日期</span>
+              <span class="value">
+                {{
+                userInfo.consultationTime | filterDateTime
+                }}
+              </span>
+            </div>
+          </el-col>
+        </el-row>
+
         <el-row>
           <el-col :span="6">
             <div class="flex">
@@ -257,7 +258,7 @@
               <span class="title">支付日期</span>
               <span class="value">
                 {{
-                userInfo.payTime | filterBirthTime
+                userInfo.payTime | filterDateTime
                 }}
               </span>
             </div>
@@ -322,7 +323,7 @@
               <span class="title">考试时间</span>
               <span class="value">
                 {{
-                userInfo.examinationTime | filterBirthTime
+                userInfo.examinationTime | filterDateTime
                 }}
               </span>
             </div>
@@ -382,6 +383,10 @@ export default {
     filterBirthTime(time) {
       if(!time){return null}
       return dayjs(time * 1000).format("YYYY年MM月DD号");
+    },
+    filterDateTime(time) {
+      if(!time){return null}
+      return dayjs(time * 1000).format("YYYY年MM月DD号 HH时mm分ss秒");
     },
     filterEduStatus(status) {
       switch (status) {
