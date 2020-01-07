@@ -2,7 +2,8 @@
 jQuery(document).ready(function () {
 
 	var step = 1
-	var apiHost = 'http://127.0.0.1:8080'
+	// var apiHost = 'http://127.0.0.1:8080'
+	var apiHost = 'http://101.133.171.8:8080'
 
     /*
         Fullscreen background

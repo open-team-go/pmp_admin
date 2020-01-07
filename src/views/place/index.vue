@@ -15,7 +15,7 @@
         <div style="margin-top: 15px">
           <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
             <el-form-item label="输入搜索：">
-              <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="名称"></el-input>
+              <el-input style="width: 203px" v-model="listQuery.keyWord" placeholder="名称"></el-input>
             </el-form-item>
             <el-form-item>
               <el-select v-model="listQuery.useOn" clearable placeholder="是否使用">
@@ -154,7 +154,7 @@
     data() {
       return {
         listQuery: {
-          keyword: "",
+          keyWord: "",
           pageNum: 1,
           pageSize: 10,
           useOn: null

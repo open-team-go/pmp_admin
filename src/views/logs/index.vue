@@ -9,7 +9,7 @@
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
           <el-form-item>
-            <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="关键字"></el-input>
+            <el-input style="width: 203px" v-model="listQuery.keyWord" placeholder="关键字"></el-input>
           </el-form-item>
           <el-form-item>
             <el-input style="width: 203px" v-model="listQuery.ip" placeholder="IP"></el-input>
@@ -92,7 +92,7 @@ export default {
   data() {
     return {
       listQuery: {
-        keyword: "",
+        keyWord: "",
         pageNum: 1,
         pageSize: 10,
         ip:'',

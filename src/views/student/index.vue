@@ -9,7 +9,7 @@
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
           <el-form-item>
-            <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="名称"></el-input>
+            <el-input style="width: 203px" v-model="listQuery.keyWord" placeholder="名称"></el-input>
           </el-form-item>
           <el-form-item>
             <el-input style="width: 203px" v-model="listQuery.comName" placeholder="公司名称"></el-input>
@@ -194,6 +194,7 @@ import {fetchAllList as fetchPlaceList } from '@/api/place'
 import {search as searchAdminApi } from '@/api/admin'
 import {fetchAllList as searchRoomApi } from '@/api/room'
 import dayjs from "dayjs";
+import { getToken } from '../../utils/auth';
 
 const defaultGende = [
   {label:'女',value:0},
@@ -228,7 +229,7 @@ export default {
     return {
       importURL: process.env.BASE_API + '/back/import/user',
       listQuery: {
-        keyword: "",
+        keyWord: "",
         pageNum: 1,
         pageSize: 10,
         courseId: "",
@@ -393,7 +394,7 @@ export default {
     handleDownload(){
       let params = this.formatKeyValue(this.listQuery);
       console.log(params);
-      window.location.href = path+params
+      window.open("http://101.133.171.8:8080"+"/export/"+getToken()+"/user"+params);
     },
     handleDelete(index, row) {
       this.$confirm("是否删除", "提示", {

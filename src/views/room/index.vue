@@ -15,7 +15,7 @@
         <div style="margin-top: 15px">
           <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
             <el-form-item label="输入搜索：">
-              <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="名称/编号 "></el-input>
+              <el-input style="width: 203px" v-model="listQuery.keyWord" placeholder="名称/编号 "></el-input>
             </el-form-item>
             <el-form-item>
               <el-select v-model="listQuery.adminId" @focus="getEduAdminList" filterable clearable placeholder="教务名">
@@ -229,7 +229,7 @@ import dayjs from "dayjs";
     data() {
       return {
         listQuery: {
-          keyword: "",
+          keyWord: "",
           adminId: null,
           courseId: null,
           placeId: null,

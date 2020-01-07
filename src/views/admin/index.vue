@@ -15,7 +15,7 @@
         <div style="margin-top: 15px">
           <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
             <el-form-item label="输入搜索：">
-              <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="用户名/手机号"></el-input>
+              <el-input style="width: 203px" v-model="listQuery.keyWord" placeholder="用户名/手机号"></el-input>
             </el-form-item>
             <el-form-item>
               <el-select v-model="listQuery.roleId" clearable placeholder="请选择角色">
@@ -97,6 +97,9 @@
         <el-form-item label="用户名：">
          <el-input v-model="formData.userName" style="width: 250px"></el-input>
         </el-form-item>
+        <el-form-item label="密码：">
+         <el-input v-model="formData.password" style="width: 250px"></el-input>
+        </el-form-item>
         <el-form-item label="角色名：">
           <el-select v-model="formData.roleId" placeholder="请选择" style="width: 250px">
           <el-option
@@ -132,6 +135,7 @@
     roleName: null,
     roleId: null,
     email: null,
+    password:null,
     contactPhone:null
   };
 
@@ -140,7 +144,7 @@
     data() {
       return {
         listQuery: {
-          keyword: "",
+          keyWord: "",
           pageNum: 1,
           pageSize: 10,
           roleId: null
@@ -198,6 +202,7 @@
           roleName: roleInfo.roleName,
           roleId: userInfo.roleId,
           email: userInfo.email,
+          password:userInfo.password,
           contactPhone: userInfo.contactPhone
         }
         this.formData = Object.assign({},data);
