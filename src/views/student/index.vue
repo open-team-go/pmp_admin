@@ -223,11 +223,13 @@ const defaultUserType = [
   {label:'联系中未报名',value:3},
 ]
 
+const BASE_API = process.env.BASE_API
+
 export default {
   name: "userList",
   data() {
     return {
-      importURL: process.env.BASE_API + '/back/import/user',
+      importURL: BASE_API + '/back/import/user',
       listQuery: {
         keyWord: "",
         pageNum: 1,
@@ -394,7 +396,7 @@ export default {
     handleDownload(){
       let params = this.formatKeyValue(this.listQuery);
       console.log(params);
-      window.open("http://101.133.171.8:8080"+"/export/"+getToken()+"/user"+params);
+      window.open( BASE_API +"/export/"+getToken()+"/user"+params);
     },
     handleDelete(index, row) {
       this.$confirm("是否删除", "提示", {
