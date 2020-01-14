@@ -152,7 +152,7 @@
             </el-col>
             <el-col :span="6">
               <div class="flex">
-                <span class="title">职位</span>
+                <span class="title">部门</span>
                 <span class="value">
                   <el-input v-model="formData.comDepartment" class="value" placeholder="请输入内容"></el-input>
                 </span>
@@ -160,7 +160,7 @@
             </el-col>
             <el-col :span="6">
               <div class="flex">
-                <span class="title">部门</span>
+                <span class="title">职位</span>
                 <span class="value">
                   <el-input v-model="formData.comPosition" class="value" placeholder="请输入内容"></el-input>
                 </span>

@@ -118,13 +118,13 @@
           </el-col>
           <el-col :span="6">
             <div class="flex">
-              <span class="title">职位</span>
+              <span class="title">部门</span>
               <span class="value">{{ userInfo.comDepartment }}</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="flex">
-              <span class="title">部门</span>
+              <span class="title">职位</span>
               <span class="value">{{ userInfo.comPosition }}</span>
             </div>
           </el-col>
