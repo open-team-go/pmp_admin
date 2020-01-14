@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>PMI网站英文报名表</title>
+      <!-- Meta tags -->
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="keywords" content="无锡艾睿哲信息科技有限公司欣旋PMP考试报名表"/>
+      <meta name="description" content="无锡艾睿哲信息科技有限公司欣旋PMP考试报名表">
+      <script>
+         addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
+      </script>
+      <link rel="stylesheet" href="css/jquery-ui.css" />
+      <link href="css/style.css" rel='stylesheet' type='text/css' media="all">
+   <body>
+      <h1 class="header-w3ls">PMI entry form</h1>
+      <div class="main-bothside">
+         <form action="#" method="post">
+            <div class="main-title">
+               <h2>Basic information</h2>
+            </div>
+            <div class="form-group">
+               <div class="form-mid-w3ls">
+                  <input type="text" class="form-control" placeholder="First Name/Given Name " required="">
+               </div>
+               <div class="form-mid-w3ls">
+                  <input type="text" class="form-control" placeholder="Last Name/Family Name" required="">
+               </div>
+               <div class="form-mid-w3ls">
+                  <input type="text" class="form-control" placeholder="Private Email" required="">
+               </div>
+            </div>
+            <div class="form-group">
+               <div class="form-mid-w3ls">
+                  <input type="text" class="form-control" placeholder="Phone" required="">
+               </div>
+               <div class="form-mid-w3ls">
+                  <input type="text" class="form-control" placeholder="Fixed telephone">
+               </div>
+               <div class="form-mid-w3ls">
+                  <input type="text" class="form-control" placeholder="CountryCode" required="">
+               </div>
+            </div>
+            <div class="form-group">
+               <div class="form-mid-w3ls">
+                  <input type="text" placeholder="City" required="">
+               </div>
+               <div class="form-grid-w3ls" style="flex-basis: 65.6%;">
+                  <input type="text" placeholder="Address" required="">
+               </div>               
+            </div>
+            <div class="main-title">
+               <h3>Education information</h3>
+            </div>
+            <div class="form-group">
+               <div class="form-mid-w3ls">
+                  <input type="text" class="form-control" placeholder="Education" required="">
+               </div>
+               <div class="form-mid-w3ls">
+                  <input id="datepicker" name="text" type="text" placeholder="Graduation time" required="">
+               </div>
+               <div class="form-mid-w3ls">
+                  <input type="text" class="form-control" placeholder="major" required="">
+               </div>
+            </div>
+            <div class="form-group">
+               <div class="form-mid-w3ls">
+                  <input type="text" class="form-control" placeholder="Graduate School" required="">
+               </div>
+               <div class="form-mid-w3ls">
+                  <input type="text" class="form-control" placeholder="School address" required="">
+               </div>
+               <div class="form-mid-w3ls">
+                  <input type="text" class="form-control" placeholder="City" required="">
+               </div>
+            </div>
+            <div class="main-title">
+               <h3>Project time breakdown information</h3>
+               <h6 style="color: red;text-align: center; margin-bottom: 25px;">This part is the key point of audit, please fill in it completely</h6>
+            </div>
+            <div class="form-control-w3l">
+               <textarea name="Message" placeholder="project 1..." required></textarea>
+            </div>
+            <div class="form-control-w3l">
+               <textarea name="Message" placeholder="project 2..." required></textarea>
+            </div>
+            <div class="form-control-w3l">
+               <textarea name="Message" placeholder="project 3..."></textarea>
+            </div>
+            <input type="submit" value="Submit">
+         </form>
+      </div>
+
+      <!-- js -->
+      <script src='js/jquery-2.2.3.min.js'></script>
+      <!-- //js -->
+      <!-- Calendar -->
+      <script src="js/jquery-ui.js"></script>
+      <script>
+         $(function () {
+            $("#datepicker").datepicker();
+            $("[required]").parent().addClass('required')
+         });
+      </script>
+      <!-- //Calendar -->
+   </body>
+</html>
