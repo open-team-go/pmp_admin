@@ -66,7 +66,7 @@ export function resourceType(data) {
 
 export function importUser(data) {
   return request({
-    url: '/back/import/user',
+    url: '/import/user',
     method: 'post',
     data
   })

@@ -229,7 +229,7 @@ export default {
   name: "userList",
   data() {
     return {
-      importURL: BASE_API + '/back/import/user',
+      importURL: BASE_API + '/import/'+getToken()+'/user',
       listQuery: {
         keyWord: "",
         pageNum: 1,
