@@ -301,7 +301,7 @@
           <el-col :span="6">
             <div class="flex">
               <span class="title">英文网站密码</span>
-              <span class="value">{{ userInfo.certCnPasw }}</span>
+              <span class="value">{{ userInfo.certEnPasw }}</span>
             </div>
           </el-col>
           <el-col :span="6">
