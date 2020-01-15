@@ -272,9 +272,17 @@ export default {
     handleImportSuccess(res){
       if(res.header && res.header.code=='SUCCESS'){
         var data = res.body
+        var err = "无导入失败记录";
+        if(data.errorList && data.errorList.length>0){
+          err = "";
+          data.errorList.forEach(element => {
+            err += element.userName + "," + element.phoneNo + ";"
+          });
+        }
+        
         this.$notify({
-          title: `导入成功，新增${data.addCount}条, 失败${data.errorList ? data.errorList.length : 0 }条`,
-          message: `共更新${data.updateCount}条记录`,
+          title: `导入成功，新增${data.addCount}条, 失败${data.errorList ? data.errorList.length : 0 }条, 共更新${data.updateCount}条记录`,
+          message: `导入失败的姓名,手机号码：${err}`,
           duration: 0
         });
       }

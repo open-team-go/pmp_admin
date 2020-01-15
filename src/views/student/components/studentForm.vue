@@ -489,6 +489,15 @@
           </el-row>
 
           <el-row>
+
+            <el-col :span="6">
+              <div class="flex">
+                <span class="title">支付备注</span>
+                <span class="value">
+                  <el-input v-model="formData.payRemarks" class="value" placeholder="请输入内容"></el-input>
+                </span>
+              </div>
+            </el-col>
             
             <el-col :span="6">
               <div class="flex">
@@ -575,6 +584,7 @@ const defaultFormData = {
   consultationTime:"",
   consultationCity:"",
   invoiceOn:"",
+  payRemarks:"",
 };
 
 export default {

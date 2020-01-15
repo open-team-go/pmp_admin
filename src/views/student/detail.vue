@@ -328,6 +328,21 @@
               </span>
             </div>
           </el-col>
+
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">支付备注</span>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="userInfo.payRemarks"
+                placement="top-start"
+              >
+                <span class="value">{{ userInfo.payRemarks }}</span>
+              </el-tooltip>
+            </div>
+          </el-col>
+
           <el-col :span="6">
             <div class="flex">
               <span class="title">备注</span>
