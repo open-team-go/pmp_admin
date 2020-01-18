@@ -47,7 +47,7 @@
       </el-pagination>
     </div>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" fullscreen="true">
       <el-form class="small-space" :model="tempRole" label-position="left" label-width="100px"
                style='width: 1000px; margin-left:50px;'>
         <el-form-item label="角色名称" required>
