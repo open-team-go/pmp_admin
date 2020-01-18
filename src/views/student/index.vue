@@ -112,7 +112,7 @@
       <i class="el-icon-tickets"></i>
       <span>学员信息表</span>
       <el-button size="mini" class="btn-add" @click="handleAdd()" style="margin-left: 20px">新增</el-button>
-      <el-upload  class="btn-add" :action="importURL" :show-file-list="false" :on-success="handleImportSuccess" :before-upload="beforeUpload">
+      <el-upload  style="margin-left: 20px" class="btn-add" :action="importURL" :show-file-list="false" :on-success="handleImportSuccess" :before-upload="beforeUpload">
         <el-button size="mini" type="primary">文件导入</el-button>
       </el-upload>
 
@@ -132,7 +132,7 @@
         <el-table-column label="姓名" align="center">
           <template slot-scope="scope">{{scope.row.userName}}</template>
         </el-table-column>
-        <el-table-column label="性别" align="center">
+        <el-table-column label="性别" align="center" width="60">
           <template slot-scope="scope">{{scope.row.gender==0 ? '女':'男'}}</template>
         </el-table-column>
         <el-table-column label="联系电话" align="center">
@@ -143,7 +143,7 @@
         </el-table-column>
         
         <el-table-column label="公司名称" align="center">
-          <template slot-scope="scope">{{scope.row.comName}}</template>
+          <template slot-scope="scope"><div class="tx_1" :title="scope.row.comName">{{scope.row.comName}}</div></template>
         </el-table-column>
         <el-table-column label="课程名称" align="center">
           <template slot-scope="scope">{{scope.row.courseName}}</template>
@@ -157,10 +157,10 @@
         <el-table-column label="学员类型" align="center" :formatter="FormatStudentType"></el-table-column>
         
 
-        <el-table-column label="操作" width="230" align="center">
+        <el-table-column label="操作" align="center">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleViewDetail(scope.$index, scope.row)">查看</el-button>
-            <el-button size="mini" @click="handleUpdate(scope.$index, scope.row)">编辑</el-button>
+            <el-button class="mgb20" size="mini" @click="handleViewDetail(scope.$index, scope.row)">查看</el-button> <br/>
+            <el-button class="mgb20" size="mini" @click="handleUpdate(scope.$index, scope.row)">编辑</el-button><br/>
             <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
@@ -460,4 +460,15 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
+.mgb20{
+  margin-bottom: 5px;
+}
+.tx_1{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pagination-container{
+  margin-bottom: 20px;
+}
 </style>

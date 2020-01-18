@@ -39,3 +39,11 @@ export function update(data) {
 		data
 	})
 }
+
+export function updatePassword(data) {
+	return request({
+		url: '/back/admin/update/password',
+		method: 'post',
+		data
+	})
+}

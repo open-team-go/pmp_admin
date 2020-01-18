@@ -11,6 +11,9 @@
         <router-link class="inlineBlock" to="/">
           <el-dropdown-item>首页</el-dropdown-item>
         </router-link>
+        <router-link class="inlineBlock" to="/my">
+          <el-dropdown-item divided>修改密码</el-dropdown-item>
+        </router-link>
         <el-dropdown-item divided>
           <span @click="clearConfigCache" style="display:block;">清除系统配置缓存</span>
         </el-dropdown-item>

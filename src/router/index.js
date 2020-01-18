@@ -34,6 +34,20 @@ export const constantRouterMap = [
       } 
     ]
   },
+  {
+    path: '',
+    component: Layout,
+    redirect: '/my/',
+    hidden: true,
+    children:[
+      {
+        path: '/my', 
+        name: '个人中心',
+        component: () => import('@/views/my/index'),
+        meta: { title: '个人中心'},
+      } 
+    ]
+  },
 ]
 
 export const asyncRouterMap = [
