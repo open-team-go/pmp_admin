@@ -16,7 +16,7 @@
           <el-col :span="6">
             <div class="flex">
               <span class="title">性别</span>
-              <span class="value">{{ userInfo.gender ? "男" : "女" }}</span>
+              <span class="value">{{ userInfo.gender==null? null: userInfo.gender? "男" : "女" }}</span>
             </div>
           </el-col>
           <el-col :span="6">

@@ -132,8 +132,8 @@
         <el-table-column label="姓名" align="center">
           <template slot-scope="scope">{{scope.row.userName}}</template>
         </el-table-column>
-        <el-table-column label="性别" align="center">
-          <template slot-scope="scope">{{scope.row.gender==0 ? '女':'男'}}</template>
+        <el-table-column label="性别" align="center ">
+          <template slot-scope="scope" v-if="scope.row.gender!=null">{{scope.row.gender==0 ? '女':'男'}}</template>
         </el-table-column>
         <el-table-column label="联系电话" align="center">
           <template slot-scope="scope">{{scope.row.phoneNo}}</template>
