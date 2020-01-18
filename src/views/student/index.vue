@@ -83,7 +83,17 @@
               ></el-option>
             </el-select>
           </el-form-item>
-           <!-- <el-form-item>
+          <el-form-item>
+            <el-select v-model="listQuery.graduationStatus" clearable placeholder="结业状态">
+              <el-option
+                v-for="item in graduationStatusOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
              <el-date-picker
                 v-model="datePicker"
                 @change="changeDatePicker"
@@ -93,7 +103,7 @@
                 start-placeholder="开始日期"
                 end-placeholder="结束日期">
               </el-date-picker>
-          </el-form-item> -->
+          </el-form-item>
          
         </el-form>
       </div>
@@ -111,43 +121,6 @@
     </el-card>
     <div class="table-container">
       <el-table ref="brandTable" :data="list" style="width: 100%" v-loading="listLoading" border>
-        <!-- <el-table-column label="姓名" align="center">
-          <template slot-scope="scope">{{scope.row.userName}}</template>
-        </el-table-column>
-        <el-table-column label="班级名称" align="center">
-          <template slot-scope="scope">{{scope.row.roomName}}</template>
-        </el-table-column>
-        <el-table-column label="顾问名称" align="center">
-          <template slot-scope="scope">{{scope.row.salesAdminName}}</template>
-        </el-table-column>
-         <el-table-column label="学员类型" align="center" :formatter="FormatStudentType"></el-table-column>
-        <el-table-column label="性别" align="center">
-          <template slot-scope="scope">{{scope.row.gender==0 ? '女':'男'}}</template>
-        </el-table-column>
-        <el-table-column label="联系电话" align="center">
-          <template slot-scope="scope">{{scope.row.phoneNo}}</template>
-        </el-table-column>       
-        <el-table-column label="创建时间" align="center" :formatter="FormatDate"></el-table-column> -->
-
-        <el-table-column label="姓名" align="center">
-          <template slot-scope="scope">{{scope.row.userName}}</template>
-        </el-table-column>
-        <el-table-column label="班级名称" align="center">
-          <template slot-scope="scope">{{scope.row.roomName}}</template>
-        </el-table-column>
-        <el-table-column label="课程名称" align="center">
-          <template slot-scope="scope">{{scope.row.courseName}}</template>
-        </el-table-column>
-         <el-table-column label="学员类型" align="center" :formatter="FormatStudentType"></el-table-column>
-        <el-table-column label="性别" align="center">
-          <template slot-scope="scope">{{scope.row.gender==0 ? '女':'男'}}</template>
-        </el-table-column>
-        <el-table-column label="联系电话" align="center">
-          <template slot-scope="scope">{{scope.row.phoneNo}}</template>
-        </el-table-column>
-        <el-table-column label="成交金额" align="center">
-          <template slot-scope="scope">{{scope.row.payTotal}}</template>
-        </el-table-column>
         <el-table-column label="咨询日期" align="center"  :formatter="FormatConsultationTime">
         </el-table-column>
         <el-table-column label="咨询城市" align="center">
@@ -156,12 +129,33 @@
         <el-table-column label="来源" align="center">
           <template slot-scope="scope">{{scope.row.resourceName}}</template>
         </el-table-column>
-        <el-table-column label="公司名称" align="center">
-          <template slot-scope="scope">{{scope.row.comName}}</template>
+        <el-table-column label="姓名" align="center">
+          <template slot-scope="scope">{{scope.row.userName}}</template>
+        </el-table-column>
+        <el-table-column label="性别" align="center">
+          <template slot-scope="scope">{{scope.row.gender==0 ? '女':'男'}}</template>
+        </el-table-column>
+        <el-table-column label="联系电话" align="center">
+          <template slot-scope="scope">{{scope.row.phoneNo}}</template>
         </el-table-column>
         <el-table-column label="邮箱" align="center">
           <template slot-scope="scope">{{scope.row.email}}</template>
         </el-table-column>
+        
+        <el-table-column label="公司名称" align="center">
+          <template slot-scope="scope">{{scope.row.comName}}</template>
+        </el-table-column>
+        <el-table-column label="课程名称" align="center">
+          <template slot-scope="scope">{{scope.row.courseName}}</template>
+        </el-table-column>
+        <el-table-column label="班级名称" align="center">
+          <template slot-scope="scope">{{scope.row.roomName}}</template>
+        </el-table-column>
+        <el-table-column label="成交金额" align="center">
+          <template slot-scope="scope">{{scope.row.payTotal}}</template>
+        </el-table-column>
+        <el-table-column label="学员类型" align="center" :formatter="FormatStudentType"></el-table-column>
+        
 
         <el-table-column label="操作" width="230" align="center">
           <template slot-scope="scope">
@@ -247,6 +241,8 @@ export default {
         comPosition: "",
         comName: "",
         payTotal: "",
+        graduationStatus: "",
+        startTime: "",
       },
       list: null,
       total: null,
