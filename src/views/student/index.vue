@@ -139,7 +139,7 @@
           <template slot-scope="scope">{{scope.row.phoneNo}}</template>
         </el-table-column>
         <el-table-column label="邮箱" align="center">
-          <template slot-scope="scope">{{scope.row.email}}</template>
+          <template slot-scope="scope"><div class="tx_1" :title="scope.row.email">{{scope.row.email}}</div></template>
         </el-table-column>
         
         <el-table-column label="公司名称" align="center">
