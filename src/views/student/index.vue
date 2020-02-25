@@ -379,10 +379,10 @@ export default {
         });
     },
     handleViewDetail(index, row) {
-      this.$router.push({path:'/student/detail',query:{id:row.userId}})
+      this.$router.push({path:'/student/detail',query:{id:row.userRefCourseId}})
     },
     handleUpdate(index, row) {
-      this.$router.push({path:'/student/edit',query:{id:row.userId}})
+      this.$router.push({path:'/student/edit',query:{id:row.userRefCourseId}})
     },
     handleAdd(index, row) {
       this.$router.push({path:'/student/add'})

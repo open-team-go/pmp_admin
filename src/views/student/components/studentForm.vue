@@ -35,7 +35,7 @@
               <div class="flex">
                 <span class="title">联系电话</span>
                 <span class="value">
-                  <el-input v-model="formData.phoneNo" class="value" placeholder="请输入内容"></el-input>
+                  <el-input v-model="formData.phoneNo" class="value" placeholder="请输入内容" @blur="validPhoneNo"></el-input>
                 </span>
               </div>
             </el-col>
@@ -539,6 +539,7 @@ const defaultUserType = [
 
 const defaultFormData = {
   userId: "",
+  userRefCourseId: "",
   userName: "",
   userType: "",
   birthday: "",
@@ -552,7 +553,6 @@ const defaultFormData = {
   backupEmail: "",
   phoneNo: "",
   nationality: "", //国籍
-  adminId: "",
   payId: "",
   certNo: "",
   certEnName: "",
@@ -722,6 +722,10 @@ export default {
     },
     validIdentityNo() {
       var value = this.formData.identityNo;
+      if(!value){
+        this.formData.identityNo = null;
+        return true;
+      }
       var reg = /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
       if (!reg.test(value)) {
         this.$message({
@@ -733,8 +737,25 @@ export default {
       }
       return true;
     },
+    validPhoneNo(){
+      var value = this.formData.phoneNo;
+      var reg = /^1\d{10}$/;
+      if (!reg.test(value)) {
+        this.$message({
+          message: "联系电话格式不正确",
+          type: "warning"
+        });
+        this.$refs.phoneNo.focus();
+        return false;
+      }
+      return true;
+    },
     validForm() {
       var flag = this.validIdentityNo(this.formData.identityNo);
+      if(!flag){
+        return flag;
+      }
+      flag = this.validPhoneNo(this.formData.phoneNo);
       return flag;
     },
     onSubmit(formName) {
