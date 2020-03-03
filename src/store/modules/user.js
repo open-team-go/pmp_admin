@@ -45,7 +45,7 @@ const user = {
           let tokenStr = data.authentication
           setToken(tokenStr)
           commit('SET_TOKEN', tokenStr)
-          commit('SET_NAME', data.userInfo.userName)
+          commit('SET_NAME', data.userInfo.nickname)
           commit('SET_Permission',data.permissionList)
           resolve()
         }).catch(error => {

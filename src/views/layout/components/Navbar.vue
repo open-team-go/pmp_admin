@@ -2,6 +2,11 @@
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <breadcrumb></breadcrumb>
+    <div class="right-panle"> 
+      <div class="userBox">
+      <span class="userName">{{name}}</span><br/>
+      <span class="roleName">{{roles[0].roleName}}</span>
+    </div>
     <el-dropdown class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
         <img class="user-avatar" :src="avatar" />
@@ -22,6 +27,7 @@
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
+    </div>
   </el-menu>
 </template>
 
@@ -38,7 +44,7 @@ export default {
     Hamburger
   },
   computed: {
-    ...mapGetters(["sidebar", "avatar"])
+    ...mapGetters(["sidebar", "avatar","name","roles"])
   },
   methods: {
     toggleSideBar() {
@@ -88,12 +94,17 @@ export default {
     top: 16px;
     color: red;
   }
+  .right-panle{    
+    position: absolute;
+    right: 35px;
+    top:0;
+    height: 50px;
+  }
   .avatar-container {
     height: 50px;
     display: inline-block;
-    position: absolute;
-    right: 35px;
     .avatar-wrapper {
+      display: inline-block;
       cursor: pointer;
       margin-top: 5px;
       position: relative;
@@ -109,6 +120,19 @@ export default {
         font-size: 12px;
       }
     }
+  }
+}
+.userBox{
+  display: inline-block;
+  margin-right: 5px;
+  line-height: 22px;
+  font-size: 12px;
+  .userName{
+    font-size: 14px;
+    color: #333;
+  }
+  .roleName{
+    color: #ccc;
   }
 }
 </style>

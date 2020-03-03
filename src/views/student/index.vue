@@ -266,6 +266,8 @@ export default {
   },
   methods: {
     handleImportSuccess(res){
+      var title ;
+      var message;
       if(res.header && res.header.code=='SUCCESS'){
         var data = res.body
         var err = "无导入失败记录";
@@ -275,13 +277,19 @@ export default {
             err += element.userName + "," + element.phoneNo + ";"
           });
         }
-        
-        this.$notify({
-          title: `导入成功，新增${data.addCount}条, 失败${data.errorList ? data.errorList.length : 0 }条, 共更新${data.updateCount}条记录`,
-          message: `导入失败的姓名,手机号码：${err}`,
+
+          title=`导入成功，新增${data.addCount}条, 失败${data.errorList ? data.errorList.length : 0 }条, 共更新${data.updateCount}条记录`;
+          message=`导入失败的姓名,手机号码：${err}`;
+      }else{
+        title=`导入失败`;
+          message=res.header.msg;
+      }
+      console.log(res)
+      this.$notify({
+          title: title,
+          message: message,
           duration: 0
         });
-      }
     },
     beforeUpload(){
 
@@ -399,7 +407,6 @@ export default {
     },
     handleDownload(){
       let params = this.formatKeyValue(this.listQuery);
-      console.log(params);
       window.open( BASE_API +"/export/"+getToken()+"/user"+params);
     },
     handleDelete(index, row) {

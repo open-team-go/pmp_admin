@@ -305,9 +305,28 @@ import dayjs from "dayjs";
      getList() {
         this.listLoading = true;
         roomService.fetchList(this.listQuery).then(res => {
-          
+          console.log("start");
           this.listLoading = false;
-          this.list = res.data.list;
+          
+          if(res.data.list.length>0){
+            res.data.list.forEach(item => {
+              console.log(item);
+              if(!item.adminInfo){
+                item.adminInfo={}
+              }
+              if(!item.courseInfo){
+                item.courseInfo={}
+              }
+              if(!item.placeInfo){
+                item.placeInfo={}
+              }
+
+            });
+            
+            this.list = res.data.list;
+          }
+          
+
           this.total = res.data.total;
           this.listQuery.pageNum = res.data.pageNum;
           this.listQuery.pageSize = res.data.pageSize;
@@ -319,9 +338,20 @@ import dayjs from "dayjs";
       },
       convertEditorData(target){
         var data = target.roomInfo;
-        data.adminId=target.adminInfo.adminId;
-        data.courseId=target.courseInfo.courseId;
-        data.placeId=target.placeInfo.placeId;
+        if(target.adminInfo){
+
+          data.adminId=target.adminInfo.adminId;
+        }
+        if(target.courseInfo){
+
+          data.courseId=target.courseInfo.courseId;
+        }
+        if(target.placeInfo){
+
+          data.placeId=target.placeInfo.placeId;
+        }
+        
+        
         return data;
       },
       handleUpdate(index, row) {
