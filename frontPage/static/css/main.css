@@ -1,0 +1,5 @@
+.formInput input,
+.formInput select,
+.formInput textarea{
+  margin-bottom: 15px;
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <title>欣旋PMP考试报名表</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <meta name="keywords" content="无锡艾睿哲信息科技有限公司欣旋PMP考试报名表" />
+   <meta name="description" content="无锡艾睿哲信息科技有限公司欣旋PMP考试报名表" />
+   <link rel="stylesheet" href="css/jquery-ui.css" />
+   <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+   <h1 class="header-w3ls">欣旋PMP考试报名表</h1>
+   <div class="main-bothside">
+      <form action="#" method="post">
+         <div class="main-title">
+            <h2>（考试报名使用，信息必须全部准确无误填写）</h2>
+         </div>
+         <div class="form-group">
+            <div class="form-mid-w3ls">
+               <input type="text" class="form-control" name="userName" placeholder="姓名" required="" />
+            </div>
+            <div class="form-mid-w3ls">
+               <select class="form-control buttom" name="gender" data-type="boolean" required>
+                  <option value="" disabled selected>性别</option>
+                  <option value="true">男</option>
+                  <option value="false">女</option>
+               </select>
+            </div>
+            <div class="form-mid-w3ls">
+               <input id="datepicker1" type="text" name="birthday" data-type="date" class="form-control"
+                  placeholder="出生日期" required="" />
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="form-mid-w3ls">
+               <input type="text" name="graduationSchool" placeholder="毕业学校" required="" />
+            </div>
+            <div class="form-mid-w3ls">
+               <input id="datepicker2" type="text" name="graduationTime" data-type="date" placeholder="毕业时间"
+                  required="" />
+            </div>
+            <div class="form-mid-w3ls">
+               <select class="form-control buttom" name="educationId" data-type="select" required>
+                  <option value="" disabled selected>学历</option>
+                  <option value="category2">Oman</option>
+                  <option value="category1">Australia</option>
+                  <option value="category3">America</option>
+                  <option value="category3">London</option>
+                  <option value="category3">Goa</option>
+                  <option value="category3">Canada</option>
+                  <option value="category3">Srilanka</option>
+               </select>
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="form-mid-w3ls">
+               <input type="text" name="identityNo" placeholder="身份证号码" required="" />
+            </div>
+            <div class="form-mid-w3ls">
+               <input type="text" name="schoolMajor" placeholder="专业" required="" />
+            </div>
+            <div class="form-mid-w3ls">
+               <input type="text" name="industry" class="form-control" placeholder="从事行业" />
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="form-mid-w3ls">
+               <input name="comPosition" type="text" placeholder="现任职务及部门" required="" />
+            </div>
+            <div class="form-mid-w3ls">
+               <input name="fixedTelephone" type="text" class="form-control" placeholder="固定电话" required="" />
+            </div>
+            <div class="form-mid-w3ls">
+               <input name="phoneNo" type="text" class="form-control" placeholder="手 机" required="" />
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="form-mid-w3ls">
+               <input name="email" type="text" class="form-control" placeholder="E-mail（私人邮箱）" required="" />
+            </div>
+            <div class="form-mid-w3ls">
+               <input name="qq" type="text" class="form-control" placeholder="QQ" />
+            </div>
+            <div class="form-mid-w3ls">
+               <input name="wechatNo" type="text" class="form-control" placeholder="微信号" />
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="form-mid-w3ls">
+               <input name="backupEmail" type="text" class="form-control" placeholder="备用邮箱" />
+            </div>
+            <div class="form-mid-w3ls">
+               <input name="" type="text" class="form-control" placeholder="邮编" />
+            </div>
+            <div class="form-mid-w3ls">
+               <input name="" type="text" class="form-control" placeholder="工作单位" />
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="form-grid-w3ls form-lg-w3ls">
+               <input type="text" class="form-control" placeholder="通讯地址" required="" />
+            </div>
+         </div>
+
+         <div class="form-control-w3l">
+            <textarea name="remark" placeholder="备注 上课城市及考试月份" required=""></textarea>
+         </div>
+         <input type="submit" id="submit" value="提交" />
+      </form>
+   </div>
+   <script>
+      addEventListener(
+         "load",
+         function () {
+            setTimeout(hideURLbar, 0);
+         },
+         false
+      );
+      function hideURLbar() {
+         window.scrollTo(0, 1);
+      }
+   </script>
+   <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+   <script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
+
+   <script src="/plugins/layer/layer.js"></script>
+   <script src="/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+   <script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
+   <script src="/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+
+   <script src="/static/js/main.js"></script>
+
+   <script src="./index.js"></script>
+</body>
+
+</html>

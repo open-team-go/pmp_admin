@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>学员个人信息</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
+
+    <link rel="stylesheet" href="/static/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="/plugins/bootstrapValidator/css/bootstrapValidator.min.css">
+    <link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="hold-transition skin-blue layout-top-nav">
+    <div class="wrapper">
+
+      <header class="main-header">
+        <nav class="navbar navbar-static-top" role="navigation">
+          <ul class="nav navbar-nav">
+            <li><a href="/index.html">课程列表</a></li>
+          </ul>
+
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="#" onclick="loginOut()">退出</a></li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+
+        <section class="content-header">
+          <h1>
+            个人资料
+          </h1>
+        </section>
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#tab_1" data-toggle="tab">基础信息</a></li>
+                  <li><a href="#tab_2" data-toggle="tab">更多信息</a></li>
+                  <li class="pull-right box-tools">
+                    <button class="btn btn-primary" id="submit">提交</button>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active" id="tab_1">
+                    <form id="form1" class="form-horizontal" style="width: 50%;">
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label for="userName" class="col-sm-2 control-label">姓名</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" name="userName" id="userName" placeholder="姓名">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="gender" class="col-sm-2 control-label">性别</label>
+                          <div class="col-sm-10">
+                              <label style="margin-right: 20px;">
+                                <input type="radio" name="gender" value="true" checked /> 男
+                              </label>
+                              <label>
+                                <input type="radio" name="gender" value="false" /> 女
+                              </label>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="birthday" class="col-sm-2 control-label">出生年月</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control input-date" data-date-format="yyyy-mm-dd" name="birthday" id="birthday" placeholder="">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="phoneNo" class="col-sm-2 control-label">联系电话</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" name="phoneNo" id="phoneNo" placeholder="联系电话">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="email" class="col-sm-2 control-label">邮箱</label>
+                          <div class="col-sm-10">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="邮箱">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="backupEmail" class="col-sm-2 control-label">备用邮箱</label>
+                          <div class="col-sm-10">
+                            <input type="email" class="form-control" name="backupEmail" id="backupEmail" placeholder="备用邮箱">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="identityNo" class="col-sm-2 control-label">身份证</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" name="identityNo" id="identityNo" placeholder="身份证">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="nationality" class="col-sm-2 control-label">民族</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" name="nationality" id="nationality" placeholder="民族">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="wechatNo" class="col-sm-2 control-label">微信号</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" name="wechatNo" id="wechatNo" placeholder="微信号">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="qq" class="col-sm-2 control-label">QQ号</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" name="qq" id="qq" placeholder="QQ...">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="tab-pane" id="tab_2">
+                    <form id="form2" class="form-horizontal" style="width: 50%;">
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label for="educationName" class="col-sm-2 control-label">学历</label>
+                          <div class="col-sm-10">
+                            <select class="form-control" name="educationName" id="educationName" key="label">
+                              <option value="1">小学</option>
+                              <option value="2">初中</option>
+                              <option value="3">高中</option>
+                              <option value="4">中专</option>
+                              <option value="5">大专</option>
+                              <option value="6">本科</option>
+                              <option value="7">硕士</option>
+                              <option value="8">博士</option>
+                              <option value="9">其它</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="schoolMajor" class="col-sm-2 control-label">专业</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" name="schoolMajor" id="schoolMajor" placeholder="专业">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="graduationSchool" class="col-sm-2 control-label">毕业学校</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" name="graduationSchool" id="graduationSchool" placeholder="毕业学校">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="graduationTime" class="col-sm-2 control-label">毕业时间</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control input-date" data-date-format="yyyy-mm-dd" name="graduationTime" id="graduationTime" placeholder="毕业时间">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="industry" class="col-sm-2 control-label">从事行业</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" name="industry" id="industry" placeholder="从事行业">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="comDepartment" class="col-sm-2 control-label">所属部门</label>
+                          <div class="col-sm-10">
+                            <input type="email" class="form-control" name="comDepartment" id="comDepartment" placeholder="所属部门">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="comPosition" class="col-sm-2 control-label">目前职位</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" name="comPosition" id="comPosition" placeholder="目前职位">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+    <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="/plugins/layer/layer.js"></script>
+    <script src="/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+    <script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+
+    <script src="/static/js/main.js"></script>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
