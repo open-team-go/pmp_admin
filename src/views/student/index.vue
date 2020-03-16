@@ -417,7 +417,7 @@ export default {
       }).then(() => {
         studentService
           .del({
-            id: row.studentId
+            id: row.userId
           })
           .then(res => {
             this.$message({
