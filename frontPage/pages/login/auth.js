@@ -39,7 +39,7 @@ var Auth = {
 				return false
 			}
 			localStorage.token = res.body
-			window.location.replace('/index.html')
+			window.location.replace(staticHost+'/index.html')
 		})
 	},
 }

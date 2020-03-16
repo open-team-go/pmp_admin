@@ -105,6 +105,9 @@
         <el-form-item label="是否使用">
          <el-switch  v-model="formData.useOn"></el-switch>
         </el-form-item>
+        <el-form-item label="报名页面：">
+          <el-input v-model="formData.applyUrl" style="width: 250px"></el-input>
+        </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false" size="small">取 消</el-button>
