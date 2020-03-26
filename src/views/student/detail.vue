@@ -389,7 +389,7 @@ export default {
     },
     filterTime(time) {
       if(!time){return null}
-      return dayjs(time * 1000).format("YYYY-MM-DD HH:mm:ss");
+      return dayjs(time * 1000).format("YYYY-MM-DD");
     },
     filterBirthday(time) {
       if(!time){return null}
@@ -401,7 +401,7 @@ export default {
     },
     filterDateTime(time) {
       if(!time){return null}
-      return dayjs(time * 1000).format("YYYY年MM月DD号 HH时mm分ss秒");
+      return dayjs(time * 1000).format("YYYY年MM月DD号");
     },
     filterEduStatus(status) {
       switch (status) {

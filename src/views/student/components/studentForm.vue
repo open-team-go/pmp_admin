@@ -388,8 +388,8 @@
                 <span class="value">
                   <el-date-picker
                     v-model="formData.payTime"
-                    type="datetime"
-                    value-format="timestamp"
+                    type="date"
+                    value-format="datetime"
                     placeholder="选择日期"
                   ></el-date-picker>>
                 </span>
@@ -401,7 +401,7 @@
                 <span class="value">
                   <el-date-picker
                     v-model="formData.examinationTime"
-                    type="datetime"
+                    type="date"
                     value-format="timestamp"
                     placeholder="选择日期"
                   ></el-date-picker>

@@ -446,13 +446,13 @@ export default {
       if(!cow.createTime){
         return null;
       }
-      return dayjs(cow.createTime * 1000).format("YYYY-MM-DD HH:mm:ss");
+      return dayjs(cow.createTime * 1000).format("YYYY-MM-DD");
     },
     FormatConsultationTime(cow){
       if(!cow.consultationTime){
         return null;
       }
-      return dayjs(cow.consultationTime * 1000).format("YYYY-MM-DD HH:mm:ss");
+      return dayjs(cow.consultationTime * 1000).format("YYYY-MM-DD");
     },
     FormatStudentType(row){
       const type = row.userType || 0
