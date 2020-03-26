@@ -356,6 +356,12 @@
               </el-tooltip>
             </div>
           </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">登录用户名</span>
+              <span class="value">{{ userInfo.loginName }}</span>
+            </div>
+          </el-col>
         </el-row>
       </div>
     </el-card>
