@@ -39,6 +39,8 @@ $(function () {
         }), function (res) {
             if (res.header.code != "SUCCESS") {
                 layer.msg(res.header.msg)
+                // 错误码处理
+                parsingErrorCode(res)
                 return false
             }
             layer.msg('更新成功');
@@ -92,6 +94,8 @@ $(function () {
         }), function (res) {
             if (res.header.code != "SUCCESS") {
                 layer.msg(res.header.msg)
+                // 错误码处理
+                parsingErrorCode(res)
                 return false
             }
             if (res.body && res.body.htmlContent) {

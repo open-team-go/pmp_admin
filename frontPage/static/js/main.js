@@ -1,3 +1,4 @@
+// var apihost = "http://wx.wxarzhe.com/web-api"
 var apihost = "http://localhost:8080"
 var staticHost = window.location.origin;
 $.ajaxSetup({
@@ -15,9 +16,11 @@ function loginOut() {
     }), function (res) {
         if (res.header.code != "SUCCESS") {
             layer.msg(res.header.msg)
+            // 错误码处理
+            parsingErrorCode(res)
             return false
         }
-        location.replace("/pages/login/index.html")
+        goLoginPage();
     })
 }
 
@@ -151,4 +154,28 @@ function GetRequest() {
         }
     }
     return theRequest;
+}
+
+
+// 进入完善个人信息页
+function goPerfectIUserInfo() {
+    location.replace("/pages/profile/index.html");
+}
+
+// 进入登录页
+function goLoginPage() {
+    location.replace("/pages/login/index.html")
+}
+
+function parsingErrorCode(error) {
+    if (!error) {
+        return;
+    }
+    // 未登录
+    if (error.header.code == "PERMISSION_ERROR_LOGIN") {
+        setTimeout(goLoginPage(), 1000);
+    } else if (error.header.code == "ERROR_PERMISSION") {
+        // 没有访问权限
+        setTimeout(goPerfectIUserInfo(), 1000);
+    }
 }

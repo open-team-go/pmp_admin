@@ -11,6 +11,8 @@ function initData() {
     }), function (res) {
         if (res.header.code != "SUCCESS") {
             layer.msg(res.header.msg)
+            // 错误码处理
+            parsingErrorCode(res)
             return false
         }
 
