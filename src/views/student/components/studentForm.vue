@@ -339,7 +339,7 @@
               <div class="flex">
                 <span class="title">咨询日期</span>
                 <span class="value">
-                  <el-date-picker v-model="formData.consultationTime" type="datetime" placeholder="选择日期"></el-date-picker>
+                  <el-date-picker v-model="formData.consultationTime" type="date" placeholder="选择日期"></el-date-picker>
                 </span>
               </div>
             </el-col>
@@ -389,7 +389,7 @@
                   <el-date-picker
                     v-model="formData.payTime"
                     type="date"
-                    value-format="datetime"
+                    value-format="timestamp"
                     placeholder="选择日期"
                   ></el-date-picker>>
                 </span>
