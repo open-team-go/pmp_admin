@@ -30,6 +30,8 @@ $(function () {
         }
       } else {
         alert(data.msg);
+        // 错误码处理
+        parsingErrorCode(res)
       }
     }
   });
