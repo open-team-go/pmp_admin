@@ -40,21 +40,19 @@ function initData() {
 
     var html = ''
     html = res.body.map(function (item) {
-      var applyUrl = item.applyUrl ? (staticHost + item.applyUrl + "?id=" + item.userRefCourseId) : "javascript:void(0)";
+      var applyUrl = item.applyUrl ? (staticHost + item.applyUrl + "?id=" + item.userRefCourseId) : "";
       return '<tr>\
       <td>' + item.courseName + '</td>\
-      <td>' + item.roomName + '</td>\
-      <td>' + item.educationAdminName + '</td>\
-      <td>' + item.salesAdminName + '</td>\
-      <td>\
-        <a href="javascript:void(0)" class="btn btn-success btn-xs detail">详情</a>\
-        <a href="' + applyUrl + '" class="btn btn-primary btn-xs report">报名</a>\
-      </td>\
+      <td>' + (item.roomName || '--') + '</td>\
+      <td>' + (item.educationAdminName || '--') + '</td>\
+      <td>' + (item.salesAdminName || '--') + '</td>\
+      <td>' + (applyUrl?('<a href="' + applyUrl + '" class="btn btn-primary btn-xs report">报名</a>'):'')+
+      '</td>\
     </tr>'
     })
     $('.table').append(html)
   })
-
+//        <a href="javascript:void(0)" class="btn btn-success btn-xs detail">详情</a>\
   $.post(apihost + '/front/user/course/select', JSON.stringify({
     body: {},
     "header": {
