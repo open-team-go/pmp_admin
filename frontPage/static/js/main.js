@@ -35,6 +35,11 @@ $.fn.extend({
     },
     setform: function (jsonValue) {
         var obj = this;
+        for (var key in jsonValue){
+            if(jsonValue[key]===null){
+                jsonValue[key]=""
+            }
+        }
         $.each(jsonValue, function (name, ival) {
             var $input = obj.find("input[name=" + name + "]");
             if ($input.attr("type") == "radio" || $input.attr("type") == "checkbox") {

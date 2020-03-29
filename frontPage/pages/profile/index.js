@@ -3,16 +3,16 @@ $(function () {
   $('#submit').on('click', function () {
     var bootstrapValidator = $("#form1").data('bootstrapValidator');
     bootstrapValidator.validate();
-    if(!bootstrapValidator.isValid()) return;
+    if (!bootstrapValidator.isValid()) return;
 
     var data = $("#form1").getform();
     var data2 = $("#form2").getform();
     var body = Object.assign({}, data, data2)
-    if(body.birthday){
-      body.birthday = Math.floor(new Date(body.birthday).getTime()/1000)
+    if (body.birthday) {
+      body.birthday = Math.floor(new Date(body.birthday).getTime() / 1000)
     }
-    if(body.graduationTime){
-      body.graduationTime = Math.floor(new Date(body.graduationTime).getTime()/1000)
+    if (body.graduationTime) {
+      body.graduationTime = Math.floor(new Date(body.graduationTime).getTime() / 1000)
     }
     updateInfo(body)
   })
@@ -87,11 +87,11 @@ function initData() {
       parsingErrorCode(res)
       return false
     }
-    if(res.body.birthday){
-      res.body.birthday = dateFormat("YYYY-mm-dd",res.body.birthday)
+    if (res.body.birthday) {
+      res.body.birthday = dateFormat("YYYY-mm-dd", res.body.birthday)
     }
-    if(res.body.graduationTime){
-      res.body.graduationTime = dateFormat("YYYY-mm-dd",res.body.graduationTime)
+    if (res.body.graduationTime) {
+      res.body.graduationTime = dateFormat("YYYY-mm-dd", res.body.graduationTime)
     }
     $('#form1').setform(res.body)
     $('#form2').setform(res.body)

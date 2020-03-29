@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>课程列表</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="/static/css/skins/skin-blue.min.css">
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      name="viewport"
+    />
+    <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/css/AdminLTE.min.css" />
+    <link rel="stylesheet" href="/static/css/skins/skin-blue.min.css" />
+    <link rel="stylesheet" href="/static/css/main.css" />
 
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
 
   <body class="hold-transition skin-blue layout-top-nav">
     <div class="wrapper">
-
       <header class="main-header">
         <nav class="navbar navbar-static-top" role="navigation">
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <li><a href="/pages/profile/index.html">个人资料</a></li>
+              <li><a href="/pages/changepwd/index.html">修改密码</a></li>
               <li><a href="#" onclick="loginOut()">退出</a></li>
             </ul>
           </div>
@@ -30,11 +34,18 @@
       </header>
 
       <div class="content-wrapper">
-
         <section class="content-header">
           <h1>
             课程列表
             <small>当前已选择课程</small>
+            <button
+              type="button"
+              class="btn btn-primary fr"
+              data-toggle="modal"
+              data-target="#myModal"
+            >
+              新增课程
+            </button>
           </h1>
         </section>
         <section class="content">
@@ -51,13 +62,66 @@
                       <th>操作</th>
                     </tr>
                   </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
             </div>
           </div>
         </section>
       </div>
 
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="myModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myModalLabel"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">新增课程</h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" id="course">
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label"
+                    >课程名称</label
+                  >
+                  <div class="col-sm-10">
+                    <select
+                      name="id"
+                      class="form-control"
+                      placeholder="课程名称"
+                    >
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+              >
+                取消
+              </button>
+              <button type="button" class="btn btn-primary save">确定</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
