@@ -59,12 +59,15 @@ $(function () {
         var flag = true;
         var title = "";
         var req = $(".req");
+        var textareaFlag = false;
         req.each(function (item) {
             var _parent = $(this).parent();
             var _next = _parent.next();
             var _content = _next.find("input");
-            if (!_content) {
-                _content = _next.find("textaera");
+            textareaFlag = false;
+            if (!_content || _content.length==0) {
+                _content = _next.find("textarea");
+                textareaFlag = true;
             }
             if (_content) {
                 var value = _content.val();
@@ -72,6 +75,13 @@ $(function () {
                 if (!value) {
                     flag = false;
                     return false;
+                }else{
+                    if(textareaFlag){
+                        _content[0].innerHTML=value;
+                    }else{
+                        _content.attr("value",value);
+                        
+                    }
                 }
             }
         })
@@ -79,6 +89,7 @@ $(function () {
             layer.msg(title + "必填");
             return false;
         }
+        return true;
     }
 
     function initData() {
@@ -100,6 +111,9 @@ $(function () {
             }
             if (res.body && res.body.htmlContent) {
                 $("#content").html(res.body.htmlContent)
+                var num = $(".pro").length;
+                $("#add_pro").html("添加第" + (num + 1) + "个项目");
+                $("#remove_pro").html("移除第" + (num) + "个项目").show();
             }
         })
     }

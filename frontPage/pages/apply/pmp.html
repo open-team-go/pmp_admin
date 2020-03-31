@@ -70,27 +70,27 @@
             <tr>
                 <td><i class="req">*</i>项目名称(项目名称不能包含缩写，以及代号)</td>
                 <td colspan="5">
-                    <input class="innerInput" type="text" placeholder="新大楼搬迁项目"/>
+                    <input name="pro_name" class="innerInput" type="text" placeholder="新大楼搬迁项目"/>
                 </td>
             </tr>
             <tr>
                 <td><i class="req">*</i>项目开始时间：</td>
                 <td>
-                    <input class="innerInput" type="text" placeholder="2015.07"/>
+                    <input name="pro_start_time" class="innerInput" type="text" placeholder="2015.07"/>
                 </td>
                 <td><i class="req">*</i>项目结束时间：</td>
                 <td>
-                    <input class="innerInput" type="text" placeholder="2016.06"/>
+                    <input name="pro_end_time" class="innerInput" type="text" placeholder="2016.06"/>
                 </td>
                 <td><i class="req">*</i>经历月份数：</td>
-                <td><input class="innerInput" type="text" placeholder="12"/></td>
+                <td><input name="pro_month_num" class="innerInput" type="text" placeholder="12"/></td>
             </tr>
             <tr>
                 <td><i class="req">*</i>在项目中的角色：</td>
-                <td><input class="innerInput" type="text" placeholder="PM"/></td>
+                <td><input name="pro_role" class="innerInput" type="text" placeholder="PM"/></td>
                 <td><i class="req">*</i>项目主要行业领域：</td>
                 <td colspan="3">
-                    <input class="innerInput" type="text" placeholder="<i class=" req">*</i><i class="req">*</i>设施管理" />
+                    <input name="pro_industry" class="innerInput" type="text" placeholder="****设施管理" />
                 </td>
             </tr>
         </table>
@@ -99,40 +99,40 @@
         <table class="auto-style1" cellpadding="0" cellspacing="0" border="1">
             <tr>
                 <td><i class="req">*</i>职位</td>
-                <td><input class="innerInput" type="text" placeholder="PM"/></td>
+                <td><input name="pro_position" class="innerInput" type="text" placeholder="PM"/></td>
                 <td><i class="req">*</i>公司名称</td>
                 <td colspan="6">
-                    <input class="innerInput" type="text" placeholder="苏州******" />
+                    <input name="pro_com" class="innerInput" type="text" placeholder="苏州******" />
                 </td>
             </tr>
             <tr>
                 <td><i class="req">*</i>地址</td>
                 <td colspan="8">
-                    <textarea class="innerInput" placeholder="苏州市工业园区星湖街*****"></textarea>
+                    <textarea name="pro_address" class="innerInput" placeholder="苏州市工业园区星湖街*****" ></textarea>
                 </td>
             </tr>
             <tr>
                 <td><i class="req">*</i>城市</td>
-                <td><input class="innerInput" type="text" placeholder="苏州"/></td>
+                <td><input name="pro_city" class="innerInput" type="text" placeholder="苏州"/></td>
                 <td>省：</td>
-                <td><input class="innerInput" type="text" placeholder="江苏"/></td>
+                <td><input name="pro_province" class="innerInput" type="text" placeholder="江苏"/></td>
                 <td>邮编：</td>
-                <td><input class="innerInput" type="text" placeholder=""/></td>
+                <td><input name="pro_postcode" class="innerInput" type="text" placeholder=""/></td>
                 <td><i class="req">*</i>国家</td>
                 <td colspan="2">
-                    <input class="innerInput" type="text" placeholder="中国"/>
+                    <input name="pro_country" class="innerInput" type="text" placeholder="中国"/>
                 </td>
             </tr>
             <tr>
                 <td>电话：</td>
                 <td>国家代码：</td>
-                <td><input class="innerInput" type="text" placeholder=""/></td>
+                <td><input name="pro_country_code" class="innerInput" type="text" placeholder=""/></td>
                 <td>区号：</td>
-                <td><input class="innerInput" type="text" placeholder=""/></td>
+                <td><input name="pro_area_code" class="innerInput" type="text" placeholder=""/></td>
                 <td><i class="req">*</i>号码</td>
-                <td><input class="innerInput" type="text" placeholder=""/></td>
+                <td><input name="pro_phone" class="innerInput" type="text" placeholder=""/></td>
                 <td>分机：</td>
-                <td><input class="innerInput" type="text" placeholder=""/></td>
+                <td><input name="pro_telephone" class="innerInput" type="text" placeholder=""/></td>
             </tr>
         </table>
 
@@ -141,20 +141,20 @@
         <table class="auto-style1" cellpadding="0" cellspacing="0" border="1">
             <tr>
                 <td><i class="req">*</i>他的姓名：</td>
-                <td><input class="innerInput" type="text" placeholder="某某"/></td>
+                <td><input name="pro_witness_name" class="innerInput" type="text" placeholder="某某"/></td>
                 <td><i class="req">*</i>关系：（发启人/客户/管理者/干系人）</td>
                 <td>
-                    <input class="innerInput" type="text" placeholder="管理者"/>
+                    <input name="pro_witness_relation" class="innerInput" type="text" placeholder="管理者"/>
                 </td>
             </tr>
             <tr>
                 <td><i class="req">*</i>他的Email：</td>
                 <td>
-                    <input class="innerInput" type="text" placeholder="****@qq.com"/>
+                    <input name="pro_witness_email" class="innerInput" type="text" placeholder="****@qq.com"/>
                 </td>
                 <td><i class="req">*</i>他的手机号码：</td>
                 <td>
-                    <input class="innerInput" type="text" placeholder="139*******"/>
+                    <input name="pro_witness_phone" class="innerInput" type="text" placeholder="139*******"/>
                 </td>
             </tr>
         </table>
@@ -173,7 +173,7 @@
             <tr>
                 <td><i class="req">*</i>项目描述：</td>
                 <td colspan="5">
-                    <textarea minlength="300" maxlength="550" rows="10" cols="100" class="innerInput"></textarea>
+                    <textarea name="pro_desc" minlength="300" maxlength="550" rows="10" cols="100" class="innerInput"></textarea>
                 </td>
             </tr>
         </table>

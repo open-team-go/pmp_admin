@@ -173,6 +173,7 @@ var Auth = {
 				return false
 			}
 			layer.msg('注册成功')
+			goLoginPage()
 		})
 	}
 }

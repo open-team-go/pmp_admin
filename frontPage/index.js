@@ -65,6 +65,29 @@ function initData() {
         return `<option value="${item.courseId}">${item.courseName}</option>`
       }).join('')
       $('#myModal').find('select[name=id]').html(html)
+    }else{
+      // 错误码处理
+      parsingErrorCode(res)
     }
   })
+
+  $.post(apihost + '/front/user/admin/select', JSON.stringify({
+    body: {},
+    "header": {
+      "authentication": localStorage.token || '',
+    }
+  }), function (res) {
+    if (res.header.code == "SUCCESS") {
+      var data = res.body
+      var html = data.map(function (item) {
+        return `<option value="${item.adminId}">${item.nickname}</option>`
+      }).join('')
+      $('#myModal').find('select[name=adminId]').html(html)
+    }else{
+      // 错误码处理
+      parsingErrorCode(res)
+    }
+  })
+
 }
+
