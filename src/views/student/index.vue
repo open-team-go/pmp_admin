@@ -108,6 +108,21 @@
         </el-form>
       </div>
     </el-card>
+
+    <el-card class="operate-container" shadow="never">
+      <div>
+        <i class="el-icon-tickets"></i>
+        <span>学员统计</span>
+      </div>
+      <div  style="margin-top: 15px">
+
+          <h4>今日新增选课数：<span>{{userStatisticsData.todayIncrement}}</span></h4>
+          <h4>未分配课程顾问选课数：<span>{{userStatisticsData.noSalesAdmin}}</span></h4>
+          <h4>未分配班级选课数：<span>{{userStatisticsData.noEducationAdmin}}</span></h4>
+
+      </div>
+    </el-card>
+
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>学员信息表</span>
@@ -258,11 +273,17 @@ export default {
       datePicker:[],
       salesOptions:[],
       eduerOptions:[],
-      roomList:[]
+      roomList:[],
+      userStatisticsData:{
+        todayIncrement:0,
+        noSalesAdmin:0,
+        noEducationAdmin:0
+      }
     };
   },
   created() {
     this.getList();
+    this.getUserStatistics();
   },
   methods: {
     handleImportSuccess(res){
@@ -367,6 +388,13 @@ export default {
           console.log(err)
         })
       }
+    },
+    getUserStatistics(){
+      studentService.userStatistics().then(res=>{
+        this.userStatisticsData = res.data
+      }).catch(err=>{
+        console.log(err)
+      })
     },
     getList() {
       this.listLoading = true;

@@ -64,6 +64,14 @@ export function resourceType(data) {
   })
 }
 
+export function userStatistics(data) {
+  return request({
+    url: '/back/user/index/statistics',
+    method: 'post',
+    data
+  })
+}
+
 export function importUser(data) {
   return request({
     url: '/import/user',
