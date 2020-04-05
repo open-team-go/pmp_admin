@@ -24,6 +24,26 @@ function AddCourse(body) {
   })
 }
 
+function confirmDelCourse(courseId){
+  if(!window.confirm("确认删除选课")){
+    return
+  }
+  $.post(apihost + '/front/user/course/del', JSON.stringify({
+    body: {id:courseId},
+    "header": {
+      "authentication": localStorage.token || '',
+    }
+  }), function (res) {
+    if (res.header.code == "SUCCESS") {
+      layer.msg("删除成功")
+      location.reload()
+    }else{
+      // 错误码处理
+      parsingErrorCode(res)
+    }
+  })
+}
+
 function initData() {
   $.post(apihost + '/front/user/course', JSON.stringify({
     body: {},
@@ -47,8 +67,9 @@ function initData() {
       <td>' + (item.educationAdminName || '--') + '</td>\
       <td>' + (item.salesAdminName || '--') + '</td>\
       <td>' + (applyUrl?('<a href="' + applyUrl + '" class="btn btn-primary btn-xs report">报名</a>'):'')+
+              (item.roomName?'':('<a href="javascript:void(0)" onclick="confirmDelCourse('+item.courseId+')" class="btn btn-primary btn-xs report">删除</a>'))
       '</td>\
-    </tr>'
+    </tr>'  
     })
     $('.table').append(html)
   })

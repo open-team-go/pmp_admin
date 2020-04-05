@@ -182,5 +182,7 @@ function parsingErrorCode(error) {
     } else if (error.header.code == "ERROR_PERMISSION") {
         // 没有访问权限
         setTimeout(goPerfectIUserInfo(), 1000);
+    }else{
+        layer.msg(error.header.msg)
     }
 }
