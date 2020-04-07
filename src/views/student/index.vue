@@ -312,13 +312,17 @@ export default {
           duration: 0
         });
     },
+    getDefaultAdminInfo(){
+      return {adminId:0,nickname:"未分配"};
+    },
     beforeUpload(){
 
     },
     GetSalesList(){
       if(!this.salesOptions.length){
         searchAdminApi({roleId:3}).then(res=>{
-          this.salesOptions = res.data
+          this.salesOptions.push(this.getDefaultAdminInfo());
+          this.salesOptions = this.salesOptions.concat(res.data)
         }).catch(err=>{
           console.log(err)
         })
@@ -361,10 +365,14 @@ export default {
       }
       
     },
+    getDefaultRoomInfo(){
+      return {roomId:0,roomName:"未分配"};
+    },
     getRoomList(){
       if(!this.roomList.length){
         searchRoomApi({useOn:true}).then(res=>{
-          this.roomList = res.data
+          this.roomList.push(this.getDefaultRoomInfo());
+          this.roomList = this.roomList.concat(res.data)
         }).catch(err=>{
           console.log(err)
         })
@@ -445,7 +453,7 @@ export default {
       }).then(() => {
         studentService
           .del({
-            id: row.userId
+            id: row.userRefCourseId
           })
           .then(res => {
             this.$message({
