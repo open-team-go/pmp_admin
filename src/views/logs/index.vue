@@ -15,12 +15,12 @@
             <el-input style="width: 203px" v-model="listQuery.ip" placeholder="IP"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="listQuery.useOn" clearable placeholder="管理员">
+            <el-select v-model="listQuery.adminId" @focus="getAdminList" filterable clearable placeholder="管理员">
               <el-option
-                v-for="item in useOnoptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in adminOptions"
+                :key="item.adminId"
+                :label="item.nickname"
+                :value="item.adminId"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -81,6 +81,7 @@
 <script>
 const logsService = require("@/api/logs");
 import dayjs from "dayjs";
+import {search as searchAdminApi } from '@/api/admin'
 
 const useOnoptions = [
   { label: "可使用", value: true },
@@ -93,6 +94,7 @@ export default {
     return {
       listQuery: {
         keyWord: "",
+        adminId:'',
         pageNum: 1,
         pageSize: 10,
         ip:'',
@@ -102,7 +104,7 @@ export default {
       list: null,
       total: null,
       listLoading: true,
-      useOnoptions,
+      adminOptions:[],
       pickerOptions: {
         shortcuts: [
           {
@@ -184,7 +186,16 @@ export default {
     },
     formDate(row) {
       return dayjs(row.createTime * 1000).format("YYYY-MM-DD HH:mm:ss");
-    }
+    },
+    getAdminList(){
+      if(!this.adminOptions.length){
+        searchAdminApi({}).then(res=>{
+          this.adminOptions = res.data
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
+    },
   }
 };
 </script>
