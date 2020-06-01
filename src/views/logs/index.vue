@@ -36,6 +36,7 @@
               :picker-options="pickerOptions"
             ></el-date-picker>
           </el-form-item>
+          
         </el-form>
       </div>
     </el-card>
@@ -99,7 +100,9 @@ export default {
         pageSize: 10,
         ip:'',
         endTime:'',
-        startTime:''
+        startTime:'',
+        roomEndTime:'',
+        roomStartTime:''
       },
       list: null,
       total: null,

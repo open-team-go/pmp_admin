@@ -100,8 +100,20 @@
                 type="datetimerange"
                 value-format="timestamp"
                 range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期">
+                start-placeholder="选课开始日期"
+                end-placeholder="选课结束日期">
+              </el-date-picker>
+          </el-form-item>
+
+          <el-form-item>
+             <el-date-picker
+                v-model="roomDatePicker"
+                @change="changeRoomDatePicker"
+                type="datetimerange"
+                value-format="timestamp"
+                range-separator="至"
+                start-placeholder="选班开始日期"
+                end-placeholder="选班结束日期">
               </el-date-picker>
           </el-form-item>
          
@@ -118,8 +130,8 @@
 
           <h4>今日新增选课数：<span>{{userStatisticsData.todayIncrement}}</span></h4>
           <h4>未分配课程顾问选课数：<span>{{userStatisticsData.noSalesAdmin}}</span></h4>
+          <h4>今日班级新增学员数：<span>{{userStatisticsData.todayRoomChoosing}}</span></h4>
           <h4>未分配班级选课数：<span>{{userStatisticsData.noEducationAdmin}}</span></h4>
-
       </div>
     </el-card>
 
@@ -257,7 +269,8 @@ export default {
         comName: "",
         payTotal: "",
         graduationStatus: "",
-        startTime: "",
+        roomStartTime:"",
+        roomEndTime:"",
       },
       list: null,
       total: null,
@@ -271,6 +284,7 @@ export default {
       payTypeOptions:[],
       placeOptions:[],
       datePicker:[],
+      roomDatePicker:[],
       salesOptions:[],
       eduerOptions:[],
       roomList:[],
@@ -344,6 +358,15 @@ export default {
       }else{
         this.listQuery.startTime = ""
         this.listQuery.endTime = ""
+      }
+    },
+    changeRoomDatePicker(val){
+      if(val && val.length){
+        this.listQuery.roomStartTime = val[0]/1000
+        this.listQuery.roomEndTime = val[1]/1000
+      }else{
+        this.listQuery.roomStartTime = ""
+        this.listQuery.roomEndTime = ""
       }
     },
     getPlaceList(){

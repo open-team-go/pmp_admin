@@ -317,6 +317,7 @@
             </div>
           </el-col>
         </el-row>
+
         <el-row>
           <el-col :span="6">
             <div class="flex">
@@ -360,6 +361,29 @@
             <div class="flex">
               <span class="title">登录用户名</span>
               <span class="value">{{ userInfo.loginName }}</span>
+            </div>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">选课时间</span>
+              <span class="value">
+                {{
+                userInfo.createTime | filterDateTime
+                }}
+              </span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="flex">
+              <span class="title">选班时间</span>
+              <span class="value">
+                {{
+                userInfo.roomChooseTime | filterDateTime
+                }}
+              </span>
             </div>
           </el-col>
         </el-row>
